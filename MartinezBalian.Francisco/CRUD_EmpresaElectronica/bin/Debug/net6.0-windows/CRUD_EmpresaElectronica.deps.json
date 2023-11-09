@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "CRUD_EmpresaElectronica/1.0.0": {
+        "dependencies": {
+          "Electronicos": "1.0.0"
+        },
+        "runtime": {
+          "CRUD_EmpresaElectronica.dll": {}
+        }
+      },
+      "Electronicos/1.0.0": {
+        "runtime": {
+          "Electronicos.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "CRUD_EmpresaElectronica/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Electronicos/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

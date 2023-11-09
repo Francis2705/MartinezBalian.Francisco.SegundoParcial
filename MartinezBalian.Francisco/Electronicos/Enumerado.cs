@@ -1,0 +1,1 @@
+﻿public enum ETipoOrigen { CHINO, AMERICANO, KOREANO, JAPONES, INTERNACIONAL}
