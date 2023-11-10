@@ -47,7 +47,7 @@ namespace Electronicos
                 this.nombre = value;
             }
         }
-        public string Marca
+        public string Marca 
         {
             get
             {
@@ -58,7 +58,7 @@ namespace Electronicos
                 this.marca = value;
             }
         }
-        public ETipoOrigen TipoOrigen
+        public ETipoOrigen TipoOrigen 
         {
             get
             {
