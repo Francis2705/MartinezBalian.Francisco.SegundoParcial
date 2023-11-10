@@ -20,3 +20,17 @@ C:\Users\franc\Desktop\carpetas_de_github\MartinezBalian.Francisco.PrimerParcial
 C:\Users\franc\Desktop\carpetas_de_github\MartinezBalian.Francisco.PrimerParcial\MartinezBalian.Francisco\Electronicos\obj\Debug\net6.0\refint\Electronicos.dll
 C:\Users\franc\Desktop\carpetas_de_github\MartinezBalian.Francisco.PrimerParcial\MartinezBalian.Francisco\Electronicos\obj\Debug\net6.0\Electronicos.pdb
 C:\Users\franc\Desktop\carpetas_de_github\MartinezBalian.Francisco.PrimerParcial\MartinezBalian.Francisco\Electronicos\obj\Debug\net6.0\ref\Electronicos.dll
+C:\Users\franc\Desktop\carpetas_de_github\MartinezBalian.Francisco.SegundoParcial\MartinezBalian.Francisco\Electronicos\bin\Debug\net6.0\Electronicos.deps.json
+C:\Users\franc\Desktop\carpetas_de_github\MartinezBalian.Francisco.SegundoParcial\MartinezBalian.Francisco\Electronicos\bin\Debug\net6.0\Electronicos.dll
+C:\Users\franc\Desktop\carpetas_de_github\MartinezBalian.Francisco.SegundoParcial\MartinezBalian.Francisco\Electronicos\bin\Debug\net6.0\Electronicos.pdb
+C:\Users\franc\Desktop\carpetas_de_github\MartinezBalian.Francisco.SegundoParcial\MartinezBalian.Francisco\Electronicos\obj\Debug\net6.0\Electronicos.csproj.AssemblyReference.cache
+C:\Users\franc\Desktop\carpetas_de_github\MartinezBalian.Francisco.SegundoParcial\MartinezBalian.Francisco\Electronicos\obj\Debug\net6.0\Electronicos.Properties.Resources.resources
+C:\Users\franc\Desktop\carpetas_de_github\MartinezBalian.Francisco.SegundoParcial\MartinezBalian.Francisco\Electronicos\obj\Debug\net6.0\Electronicos.csproj.GenerateResource.cache
+C:\Users\franc\Desktop\carpetas_de_github\MartinezBalian.Francisco.SegundoParcial\MartinezBalian.Francisco\Electronicos\obj\Debug\net6.0\Electronicos.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\franc\Desktop\carpetas_de_github\MartinezBalian.Francisco.SegundoParcial\MartinezBalian.Francisco\Electronicos\obj\Debug\net6.0\Electronicos.AssemblyInfoInputs.cache
+C:\Users\franc\Desktop\carpetas_de_github\MartinezBalian.Francisco.SegundoParcial\MartinezBalian.Francisco\Electronicos\obj\Debug\net6.0\Electronicos.AssemblyInfo.cs
+C:\Users\franc\Desktop\carpetas_de_github\MartinezBalian.Francisco.SegundoParcial\MartinezBalian.Francisco\Electronicos\obj\Debug\net6.0\Electronicos.csproj.CoreCompileInputs.cache
+C:\Users\franc\Desktop\carpetas_de_github\MartinezBalian.Francisco.SegundoParcial\MartinezBalian.Francisco\Electronicos\obj\Debug\net6.0\Electronicos.dll
+C:\Users\franc\Desktop\carpetas_de_github\MartinezBalian.Francisco.SegundoParcial\MartinezBalian.Francisco\Electronicos\obj\Debug\net6.0\refint\Electronicos.dll
+C:\Users\franc\Desktop\carpetas_de_github\MartinezBalian.Francisco.SegundoParcial\MartinezBalian.Francisco\Electronicos\obj\Debug\net6.0\Electronicos.pdb
+C:\Users\franc\Desktop\carpetas_de_github\MartinezBalian.Francisco.SegundoParcial\MartinezBalian.Francisco\Electronicos\obj\Debug\net6.0\ref\Electronicos.dll

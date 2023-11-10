@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -19,29 +20,42 @@ namespace CRUD_EmpresaElectronica
     /// </summary>
     public partial class FrmPrincipalEmpresa : Form
     {
+        private AccesoDatos ado = new AccesoDatos();
         private EmpresaElectronica empresaElectronica = new EmpresaElectronica("Comcelcon", "Francisco");
+
+        //aca serian listas de T generics
+        private List<Celular> listaCelulares;
         private bool error;
         private int cantidad;
 
         /// <summary>
         /// Inicializa los componentes del formulario y setea el posible error en falso
         /// </summary>
-        public FrmPrincipalEmpresa()
+        public FrmPrincipalEmpresa() //cargo las listas FALTA LAS DE COMPU Y CONSOLA
         {
             InitializeComponent();
+
+            this.listaCelulares = this.ado.ObtenerDistintasListas();
+            //faltan las demas
+
             this.Text = this.empresaElectronica.Nombre;
             this.error = false;
         }
         /// <summary>
         /// Limpia y actualiza el listBox de los productos
         /// </summary>
-        private void ActualizarVisor()
+        private void ActualizarVisor() //falta agregar las de compu y consola, y tambien tendria q agregar q no se repitan
         {
             lstBoxObjetos.Items.Clear();
 
             foreach (ArtefactoElectronico artefacto in empresaElectronica.ProductosElectronicos)
             {
                 lstBoxObjetos.Items.Add(artefacto); //Agrego un objeto y se muestran sus datos
+
+                if (artefacto is Celular)
+                {
+                    this.listaCelulares.Add((Celular)artefacto);
+                }
             }
         }
         /// <summary>

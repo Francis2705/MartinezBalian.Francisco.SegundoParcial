@@ -1,3 +1,4 @@
+using Electronicos;
 using System.Security.Cryptography;
 
 namespace CRUD_EmpresaElectronica
@@ -13,6 +14,18 @@ namespace CRUD_EmpresaElectronica
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
+
+            /* AccesoDatos ado = new AccesoDatos();
+
+            if (ado.PruebaConexion())
+            {
+                Console.WriteLine("se conecto");
+            }
+            else
+            {
+                Console.WriteLine("no se conecto");
+            } */
+
             Application.Run(new FrmLogin());
         }
     }
