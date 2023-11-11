@@ -22,6 +22,7 @@ namespace CRUD_EmpresaElectronica
         int velocidadDescargaMB;
         bool aceptaDiscosFisicos = false;
         ETipoOrigen tipoOrigen;
+        int idTomado;
         /// <summary>
         /// Inicializa los componentes del formulario y setea el comboBox de si acepta discos fisicos o no
         /// </summary>
@@ -37,6 +38,7 @@ namespace CRUD_EmpresaElectronica
         /// </summary>
         public FrmConsola(Consola consola) : this()
         {
+            this.idTomado = consola.ID;
             txtNombre.Text = consola.Nombre;
             txtPrecio.Text = consola.Precio.ToString();
             txtMarca.Text = consola.Marca;
@@ -89,6 +91,7 @@ namespace CRUD_EmpresaElectronica
 
                 this.consola = new Consola(precio, txtNombre.Text, txtMarca.Text, tipoOrigen, aceptaDiscosFisicos, velocidadDescargaMB,
                     memoriaTotal);
+                this.consola.ID = this.idTomado;
                 this.DialogResult = DialogResult.OK;
             }
             else

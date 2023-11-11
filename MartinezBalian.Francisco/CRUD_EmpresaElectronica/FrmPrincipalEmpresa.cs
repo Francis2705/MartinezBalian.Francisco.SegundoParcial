@@ -129,6 +129,7 @@ namespace CRUD_EmpresaElectronica
                         {
                             if (ado.AgregarDato(frmCeluar.celular))
                             {
+                                frmCeluar.celular.ID = ado.TraerID(true, false, false, frmCeluar.celular);
                                 MessageBox.Show("Se agrego exitosamente a la lista y a la base de datos!");
                             }
                         }
@@ -148,6 +149,7 @@ namespace CRUD_EmpresaElectronica
                         {
                             if (ado.AgregarDato(frmComputadora.computadora))
                             {
+                                frmComputadora.computadora.ID = ado.TraerID(false, true, false, frmComputadora.computadora);
                                 MessageBox.Show("Se agrego exitosamente a la base de datos!");
                             }
                         }
@@ -167,6 +169,7 @@ namespace CRUD_EmpresaElectronica
                         {
                             if (ado.AgregarDato(frmConsola.consola))
                             {
+                                frmConsola.consola.ID = ado.TraerID(false, false, true, frmConsola.consola);
                                 MessageBox.Show("Se agrego exitosamente a la base de datos!");
                             }
                         }
@@ -179,7 +182,7 @@ namespace CRUD_EmpresaElectronica
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void btnModificar_Click(object sender, EventArgs e) //falta modificar con base de datos
+        private void btnModificar_Click(object sender, EventArgs e)
         {
             if (this.lstBoxObjetos.SelectedIndex == -1)
             {
@@ -199,6 +202,12 @@ namespace CRUD_EmpresaElectronica
                     {
                         this.empresaElectronica.ProductosElectronicos[lstBoxObjetos.SelectedIndex] = frmCeluar.celular;
                         this.ActualizarVisor();
+
+                        if (ado.ModificarDato(frmCeluar.celular))
+                        {
+                            MessageBox.Show("Se modifico exitosamente de la lista y de la base de datos!");
+                        }
+
                     }
                 }
                 else if (this.lstBoxObjetos.SelectedItem is Computadora)
@@ -212,6 +221,11 @@ namespace CRUD_EmpresaElectronica
                     {
                         this.empresaElectronica.ProductosElectronicos[lstBoxObjetos.SelectedIndex] = frmComputadora.computadora;
                         this.ActualizarVisor();
+
+                        if (ado.ModificarDato(frmComputadora.computadora))
+                        {
+                            MessageBox.Show("Se modifico exitosamente de la lista y de la base de datos!");
+                        }
                     }
                 }
                 else if (this.lstBoxObjetos.SelectedItem is Consola)
@@ -225,6 +239,11 @@ namespace CRUD_EmpresaElectronica
                     {
                         this.empresaElectronica.ProductosElectronicos[lstBoxObjetos.SelectedIndex] = frmConsola.consola;
                         this.ActualizarVisor();
+
+                        if (ado.ModificarDato(frmConsola.consola))
+                        {
+                            MessageBox.Show("Se modifico exitosamente de la lista y de la base de datos!");
+                        }
                     }
                 }
             }

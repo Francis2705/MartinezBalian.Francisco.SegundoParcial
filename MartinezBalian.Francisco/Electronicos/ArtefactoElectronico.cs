@@ -18,6 +18,7 @@ namespace Electronicos
         protected string nombre;
         protected string marca;
         protected ETipoOrigen tipoOrigen;
+        protected int id;
 
         //Propiedades
         public double Precio 
@@ -67,6 +68,17 @@ namespace Electronicos
             set
             {
                 this.tipoOrigen = value;
+            }
+        }
+        public int ID 
+        {
+            get
+            {
+                return this.id;
+            }
+            set
+            {
+                this.id = value;
             }
         }
 

@@ -23,6 +23,7 @@ namespace CRUD_EmpresaElectronica
         int cantidadContactos;
         bool asistente = false;
         ETipoOrigen tipoOrigen;
+        int idTomado;
         /// <summary>
         /// Inicializa los componentes del formulario y setea el comboBox del asistente virtual
         /// </summary>
@@ -38,6 +39,7 @@ namespace CRUD_EmpresaElectronica
         /// </summary>
         public FrmCelular(Celular celu) : this()
         {
+            this.idTomado = celu.ID;
             txtNombre.Text = celu.Nombre;
             txtPrecio.Text = celu.Precio.ToString();
             txtMarca.Text = celu.Marca;
@@ -89,6 +91,7 @@ namespace CRUD_EmpresaElectronica
                 }
 
                 this.celular = new Celular(precio, txtNombre.Text, txtMarca.Text, tipoOrigen, bateria, cantidadContactos, asistente);
+                this.celular.ID = this.idTomado;
                 this.DialogResult = DialogResult.OK;
             }
             else

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using Microsoft.Data.SqlClient;
 using System.Security.AccessControl;
+using System.Collections;
 
 namespace Electronicos
 {
@@ -33,15 +34,15 @@ namespace Electronicos
 
             if (celu)
             {
-                campos = "precio,nombre,marca,tipoOrigen,asistenteVirtual,bateria,cantidadContactos FROM Celular";
+                campos = "id,precio,nombre,marca,tipoOrigen,asistenteVirtual,bateria,cantidadContactos FROM Celular";
             }
             else if (compu)
             {
-                campos = "precio,nombre,marca,tipoOrigen,esTactil,cantidadNucleos,espacioDiscoSSD FROM Computadora";
+                campos = "id,precio,nombre,marca,tipoOrigen,esTactil,cantidadNucleos,espacioDiscoSSD FROM Computadora";
             }
             else if(conso)
             {
-                campos = "precio,nombre,marca,tipoOrigen,aceptaDiscosFisicos,memoriaTotal,velocidadDescargaMB FROM Consola";
+                campos = "id,precio,nombre,marca,tipoOrigen,aceptaDiscosFisicos,memoriaTotal,velocidadDescargaMB FROM Consola";
             }
 
             this.comando = new SqlCommand();
@@ -56,6 +57,7 @@ namespace Electronicos
                 while (this.lector.Read())
                 {
                     Celular celular = new Celular();
+                    celular.ID = (int)this.lector["id"];
                     celular.Precio = (double)this.lector["precio"];
                     celular.Nombre = (string)this.lector["nombre"];
                     celular.Marca = (string)this.lector["marca"];
@@ -72,13 +74,14 @@ namespace Electronicos
                 while (this.lector.Read())
                 {
                     Computadora computadora = new Computadora();
+                    computadora.ID = (int)this.lector["id"];
                     computadora.Precio = (double)this.lector["precio"];
                     computadora.Nombre = (string)this.lector["nombre"];
                     computadora.Marca = (string)this.lector["marca"];
                     computadora.TipoOrigen = AccesoDatos.ValidarEnum(this.lector);
                     computadora.EsTactil = (bool)this.lector["esTactil"];
                     computadora.CantidadNucleos = (int)this.lector["cantidadNucleos"];
-                    computadora.EspacioDiscoSSD = (float)this.lector["espacioDiscoSSD"];
+                    computadora.EspacioDiscoSSD = (double)this.lector["espacioDiscoSSD"];
 
                     lista.Add(computadora);
                 }
@@ -88,12 +91,13 @@ namespace Electronicos
                 while (this.lector.Read())
                 {
                     Consola consola = new Consola();
+                    consola.ID = (int)this.lector["id"];
                     consola.Precio = (double)this.lector["precio"];
                     consola.Nombre = (string)this.lector["nombre"];
                     consola.Marca = (string)this.lector["marca"];
                     consola.TipoOrigen = AccesoDatos.ValidarEnum(this.lector);
                     consola.AceptaDiscosFisicos = (bool)this.lector["aceptaDiscosFisicos"];
-                    consola.MemoriaTotal = (float)this.lector["memoriaTotal"];
+                    consola.MemoriaTotal = (double)this.lector["memoriaTotal"];
                     consola.VelocidadDescargaMB = (int)this.lector["velocidadDescargaMB"];
 
                     lista.Add(consola);
@@ -172,11 +176,78 @@ namespace Electronicos
 
             return retorno;
         }
+        public bool ModificarDato(ArtefactoElectronico artefacto) //UPDATE 
+        {
+            string campos = "";
+            bool retorno = false;
+            this.comando = new SqlCommand();
 
-        //falta modificar (update)
+            if (artefacto is Celular)
+            {
+                Celular celu = ((Celular)artefacto);
+                this.comando.Parameters.AddWithValue("@id", celu.ID);
+                this.comando.Parameters.AddWithValue("@precio", celu.Precio);
+                this.comando.Parameters.AddWithValue("@nombre", celu.Nombre);
+                this.comando.Parameters.AddWithValue("@marca", celu.Marca);
+                this.comando.Parameters.AddWithValue("@tipoOrigen", celu.TipoOrigen.ToString());
+                this.comando.Parameters.AddWithValue("@asistenteVirtual", celu.AsistenteVirtual);
+                this.comando.Parameters.AddWithValue("@bateria", celu.Bateria);
+                this.comando.Parameters.AddWithValue("@cantidadContactos", celu.CantidadContactos);
+                campos = "Celular set precio = @precio, nombre = @nombre, marca = @marca, tipoOrigen = @tipoOrigen," +
+                    "asistenteVirtual = @asistenteVirtual, bateria = @bateria, cantidadContactos = @cantidadContactos WHERE id = @id";
+            }
+            else if (artefacto is Computadora)
+            {
+                Computadora compu = ((Computadora)artefacto);
+                this.comando.Parameters.AddWithValue("@id", compu.ID);
+                this.comando.Parameters.AddWithValue("@precio", compu.Precio);
+                this.comando.Parameters.AddWithValue("@nombre", compu.Nombre);
+                this.comando.Parameters.AddWithValue("@marca", compu.Marca);
+                this.comando.Parameters.AddWithValue("@tipoOrigen", compu.TipoOrigen.ToString());
+                this.comando.Parameters.AddWithValue("@esTactil", compu.EsTactil);
+                this.comando.Parameters.AddWithValue("@cantidadNucleos", compu.CantidadNucleos);
+                this.comando.Parameters.AddWithValue("@espacioDiscoSSD", compu.EspacioDiscoSSD);
+                campos = "Computadora set precio = @precio, nombre = @nombre, marca = @marca, tipoOrigen = @tipoOrigen, " +
+                    "esTactil = @esTactil, cantidadNucleos = @cantidadNucleos, espacioDiscoSSD = @espacioDiscoSSD WHERE id = @id";
+            }
+            else if (artefacto is Consola)
+            {
+                Consola conso = ((Consola)artefacto);
+                this.comando.Parameters.AddWithValue("@id", conso.ID);
+                this.comando.Parameters.AddWithValue("@precio", conso.Precio);
+                this.comando.Parameters.AddWithValue("@nombre", conso.Nombre);
+                this.comando.Parameters.AddWithValue("@marca", conso.Marca);
+                this.comando.Parameters.AddWithValue("@tipoOrigen", conso.TipoOrigen.ToString());
+                this.comando.Parameters.AddWithValue("@aceptaDiscosFisicos", conso.AceptaDiscosFisicos);
+                this.comando.Parameters.AddWithValue("@memoriaTotal", conso.MemoriaTotal);
+                this.comando.Parameters.AddWithValue("@velocidadDescargaMB", conso.VelocidadDescargaMB);
+                campos = "Consola set precio = @precio, nombre = @nombre, marca = @marca, tipoOrigen = @tipoOrigen, " +
+                    "aceptaDiscosFisicos = @aceptaDiscosFisicos, memoriaTotal = @memoriaTotal, velocidadDescargaMB = @velocidadDescargaMB " +
+                    "WHERE id = @id";
+            }
+
+            this.comando.CommandType = System.Data.CommandType.Text;
+            this.comando.CommandText = $"UPDATE {campos}";
+            this.comando.Connection = this.conexion;
+            this.conexion.Open();
+            int filasAfectadas = this.comando.ExecuteNonQuery();
+
+            if (filasAfectadas == 1)
+            {
+                retorno = true;
+            }
+
+            if (this.conexion.State == System.Data.ConnectionState.Open)
+            {
+                this.conexion.Close();
+            }
+
+            return retorno;
+        }
+        
         //falta eliminar (delete)
 
-        private static ETipoOrigen ValidarEnum(SqlDataReader lectorAuxiliar)
+        private static ETipoOrigen ValidarEnum(SqlDataReader lectorAuxiliar) 
         {
             if (lectorAuxiliar["tipoOrigen"].ToString() == "CHINO")
             {
@@ -198,6 +269,44 @@ namespace Electronicos
             {
                 return ETipoOrigen.INTERNACIONAL;
             }
+        }
+        public int TraerID(bool celu, bool compu, bool conso, ArtefactoElectronico artefacto)
+        {
+            int id = 0;
+            string tabla = "";
+
+            if (celu)
+            {
+                tabla = "Celular";
+            }
+            else if (compu)
+            {
+                tabla = "Computadora";
+            }
+            else if (conso)
+            {
+                tabla = "Consola";
+            }
+
+            this.comando = new SqlCommand();
+            this.comando.CommandType = System.Data.CommandType.Text;
+            this.comando.CommandText = $"SELECT id from {tabla} WHERE nombre = '{artefacto.Nombre}'";
+            this.comando.Connection = this.conexion;
+            this.conexion.Open();
+            this.lector = this.comando.ExecuteReader();
+
+            
+            while (this.lector.Read())
+            {
+                id = (int)this.lector["id"];
+            }
+            this.lector.Close();
+            if (this.conexion.State == System.Data.ConnectionState.Open)
+            {
+                this.conexion.Close();
+            }
+
+            return id;
         }
 
         /*public bool PruebaConexion()

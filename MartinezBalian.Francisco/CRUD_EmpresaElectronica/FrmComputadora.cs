@@ -22,6 +22,7 @@ namespace CRUD_EmpresaElectronica
         double espacioDiscoSDD;
         bool tactil = false;
         ETipoOrigen tipoOrigen;
+        int idTomado;
         /// <summary>
         /// Inicializa los componentes del formulario y setea el comboBox de si es tactil o no
         /// </summary>
@@ -37,6 +38,7 @@ namespace CRUD_EmpresaElectronica
         /// </summary>
         public FrmComputadora(Computadora computadora) : this()
         {
+            this.idTomado = computadora.ID;
             txtNombre.Text = computadora.Nombre;
             txtPrecio.Text = computadora.Precio.ToString();
             txtMarca.Text = computadora.Marca;
@@ -89,6 +91,7 @@ namespace CRUD_EmpresaElectronica
 
                 this.computadora = new Computadora(precio, txtNombre.Text, txtMarca.Text, tipoOrigen, tactil, espacioDiscoSDD,
                     cantidadNucleos);
+                this.computadora.ID = this.idTomado;
                 this.DialogResult = DialogResult.OK;
             }
             else
