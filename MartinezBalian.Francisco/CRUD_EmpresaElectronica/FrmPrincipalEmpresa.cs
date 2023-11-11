@@ -22,77 +22,45 @@ namespace CRUD_EmpresaElectronica
     {
         private AccesoDatos ado = new AccesoDatos();
         private EmpresaElectronica empresaElectronica = new EmpresaElectronica("Comcelcon", "Francisco");
-        private bool error;
+        private UsuarioElectronico usuarioElectronico = FrmLogin.GetUsuarioElectronico();
         private int cantidad;
 
-        public FrmPrincipalEmpresa() //cargo las listas FALTA LAS DE COMPU Y CONSOLA
+        public FrmPrincipalEmpresa()
         {
             InitializeComponent();
-
-            this.listaCelulares = this.ado.ObtenerDistintasListas();
-            //faltan las demas
-
+            this.empresaElectronica.ProductosElectronicos = this.ado.ObtenerTodasLasListas(this.empresaElectronica.ProductosElectronicos,
+                true, false, false);
+            this.empresaElectronica.ProductosElectronicos = this.ado.ObtenerTodasLasListas(this.empresaElectronica.ProductosElectronicos, 
+                false, true, false);
+            this.empresaElectronica.ProductosElectronicos = this.ado.ObtenerTodasLasListas(this.empresaElectronica.ProductosElectronicos, 
+                false, false, true);
             this.Text = this.empresaElectronica.Nombre;
-            this.error = false;
         }
-        private void ActualizarVisor() //falta agregar las de compu y consola, y tambien tendria q agregar q no se repitan
+        private void ActualizarVisor()
         {
             lstBoxObjetos.Items.Clear();
 
             foreach (ArtefactoElectronico artefacto in empresaElectronica.ProductosElectronicos)
             {
                 lstBoxObjetos.Items.Add(artefacto); //Agrego un objeto y se muestran sus datos
-
-                if (artefacto is Celular)
-                {
-                    this.listaCelulares.Add((Celular)artefacto);
-                }
             }
         }
-        private void FrmPrincipalEmpresa_FormClosing(object sender, FormClosingEventArgs e) //sacar el savefiledialog
+        private void FrmPrincipalEmpresa_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (error)
+            DialogResult resultado = MessageBox.Show("¿Estás seguro de que quieres cerrar la sesion?",
+                "Confirmar cierre", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (resultado == DialogResult.No)
             {
-                this.DialogResult = DialogResult.OK;
+                e.Cancel = true;
             }
             else
             {
-                DialogResult resultado = MessageBox.Show("¿Estás seguro de que quieres cerrar la sesion?",
-                    "Confirmar cierre", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                if (resultado == DialogResult.No)
-                {
-                    e.Cancel = true;
-                }
-                else
-                {
-                    using (SaveFileDialog saveDialog = new SaveFileDialog())
-                    {
-                        saveDialog.Filter = "XML Files (*.xml)|*.xml";
-                        if (saveDialog.ShowDialog() == DialogResult.OK)
-                        {
-                            string fileName = saveDialog.FileName;
-
-                            XmlSerializer serializer = new XmlSerializer(typeof(List<ArtefactoElectronico>));
-
-                            using (FileStream stream = new FileStream(fileName, FileMode.Create)) //Ahora lo abro para escribir
-                            {
-                                serializer.Serialize(stream, empresaElectronica.ProductosElectronicos);
-                            }
-                            this.DialogResult = DialogResult.OK;
-                        }
-                        else
-                        {
-                            e.Cancel = true;
-                        }
-                    }
-                }
+                this.DialogResult = DialogResult.OK;
             }
         }
-        private void FrmPrincipalEmpresa_Load(object sender, EventArgs e) //sacar el openfiledialog
+        private void FrmPrincipalEmpresa_Load(object sender, EventArgs e)
         {
-            UsuarioElectronico usuarioElectronico = FrmLogin.GetUsuarioElectronico();
-
             this.lblUsuarioInfo.Text = $"Nombre: {usuarioElectronico.nombre}\nFecha: {DateTime.Now.ToString("yyyy-MM-dd")}";
 
             this.cmBoxProductos.Items.Add("Celular");
@@ -100,41 +68,8 @@ namespace CRUD_EmpresaElectronica
             this.cmBoxProductos.Items.Add("Consola");
             this.cmBoxProductos.DropDownStyle = ComboBoxStyle.DropDownList;
 
-            using (OpenFileDialog openDialog = new OpenFileDialog())
-            {
-                openDialog.Filter = "XML Files (*.xml)|*.xml";
-                if (openDialog.ShowDialog() == DialogResult.OK)
-                {
-                    string fileName = openDialog.FileName;
-                    XmlSerializer serializer = new XmlSerializer(typeof(List<ArtefactoElectronico>));
+            this.ActualizarVisor();
 
-                    try
-                    {
-                        using (FileStream stream = new FileStream(fileName, FileMode.Open)) //FileMode.Open es de solo lectura
-                        {
-                            this.empresaElectronica.ProductosElectronicos = (List<ArtefactoElectronico>)serializer.Deserialize(stream);
-                        }
-
-                        foreach (Celular celu in listaCelulares)
-                        {
-                            this.empresaElectronica += celu; //ya aca valida q no este repetido
-                        }
-
-                        this.ActualizarVisor();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Error: {ex}");
-                        this.error = true;
-                        this.DialogResult = DialogResult.OK;
-                    }
-                }
-                else
-                {
-                    this.error = true;
-                    this.DialogResult = DialogResult.OK;
-                }
-            }
         }
         private void btnVisualizadorUsuariosLogueo_Click(object sender, EventArgs e)
         {
@@ -188,15 +123,13 @@ namespace CRUD_EmpresaElectronica
                     if (frmCeluar.DialogResult == DialogResult.OK)
                     {
                         this.cantidad = empresaElectronica.ProductosElectronicos.Count;
-                        this.empresaElectronica += frmCeluar.celular; //empresaElectronica.ProductosElectronicos.Add(frmCeluar.celular);
+                        this.empresaElectronica += frmCeluar.celular;
                         this.ValidarProducto();
 
                         if (ado.AgregarDato(frmCeluar.celular))
                         {
                             MessageBox.Show("se agrego");
                         }
-
-
                     }
                 }
                 else if (opcionSeleccionada == "Computadora")

@@ -51,9 +51,9 @@ namespace Electronicos
         }*/
 
 
-        public List<ArtefactoElectronico> ObtenerTodasLasListas(bool celu, bool compu, bool conso)
+        public List<ArtefactoElectronico> ObtenerTodasLasListas(List<ArtefactoElectronico> lista, 
+            bool celu, bool compu, bool conso)
         {
-            List<ArtefactoElectronico> nuevaListaArtefactos = new List<ArtefactoElectronico>();
             string campos = "";
 
             if (celu)
@@ -89,7 +89,7 @@ namespace Electronicos
                     celular.Bateria = (int)this.lector["bateria"];
                     celular.CantidadContactos = (int)this.lector["cantidadContactos"];
 
-                    nuevaListaArtefactos.Add(celular);
+                    lista.Add(celular);
                 }
             }
             else if (compu)
@@ -105,7 +105,7 @@ namespace Electronicos
                     computadora.CantidadNucleos = (int)this.lector["cantidadNucleos"];
                     computadora.EspacioDiscoSSD = (float)this.lector["espacioDiscoSSD"];
 
-                    nuevaListaArtefactos.Add(computadora);
+                    lista.Add(computadora);
                 }
             }
             else if (conso)
@@ -121,7 +121,7 @@ namespace Electronicos
                     consola.MemoriaTotal = (float)this.lector["memoriaTotal"];
                     consola.VelocidadDescargaMB = (int)this.lector["velocidadDescargaMB"];
 
-                    nuevaListaArtefactos.Add(consola);
+                    lista.Add(consola);
                 }
             }
 
@@ -130,19 +130,27 @@ namespace Electronicos
             {
                 this.conexion.Close();
             }
-            return nuevaListaArtefactos;
+            return lista;
         }
 
-        public bool AgregarDato(ArtefactoElectronico artefacto) //terminar
+        public bool AgregarDato(ArtefactoElectronico artefacto)
         {
             string campos = "";
             bool retorno = false;
+            this.comando = new SqlCommand();
 
             if (artefacto is Celular)
             {
                 Celular celu = ((Celular)artefacto);
+                this.comando.Parameters.AddWithValue("@precio", celu.Precio);
+                this.comando.Parameters.AddWithValue("@nombre", celu.Nombre);
+                this.comando.Parameters.AddWithValue("@marca", celu.Marca);
+                this.comando.Parameters.AddWithValue("@tipoOrigen", celu.TipoOrigen.ToString());
+                this.comando.Parameters.AddWithValue("@asistenteVirtual", celu.AsistenteVirtual);
+                this.comando.Parameters.AddWithValue("@bateria", celu.Bateria);
+                this.comando.Parameters.AddWithValue("@cantidadContactos", celu.CantidadContactos);
                 campos = "Celular(precio,nombre,marca,tipoOrigen,asistenteVirtual,bateria,cantidadContactos) " +
-                    "VALUES()";
+                    "VALUES(@precio, @nombre, @marca, @tipoOrigen, @asistenteVirtual, @bateria, @cantidadContactos)";
             }
             else if (artefacto is Computadora)
             {
@@ -153,8 +161,6 @@ namespace Electronicos
 
             }
 
-
-            this.comando = new SqlCommand();
             this.comando.CommandType = System.Data.CommandType.Text;
             this.comando.CommandText = $"INSERT INTO {campos}";
             this.comando.Connection = this.conexion;
