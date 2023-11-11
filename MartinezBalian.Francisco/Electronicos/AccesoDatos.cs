@@ -244,8 +244,46 @@ namespace Electronicos
 
             return retorno;
         }
+        public bool EliminarDato(ArtefactoElectronico artefacto)
+        {
+            int id = artefacto.ID;
+            bool retorno = false;
+            string tabla = "";
+            this.comando = new SqlCommand();
+
+            if (artefacto is Celular)
+            {
+                tabla = "Celular";
+            }
+            else if (artefacto is Computadora)
+            {
+                tabla = "Computadora";
+            }
+            else if (artefacto is Consola)
+            {
+                tabla = "Consola";
+            }
+
+            this.comando.CommandType = System.Data.CommandType.Text;
+            this.comando.CommandText = $"DELETE from {tabla} WHERE id = {id}";
+            this.comando.Connection = this.conexion;
+            this.conexion.Open();
+            int filasAfectadas = this.comando.ExecuteNonQuery();
+
+            if (filasAfectadas == 1)
+            {
+                retorno = true;
+            }
+
+            if (this.conexion.State == System.Data.ConnectionState.Open)
+            {
+                this.conexion.Close();
+            }
+
+            return retorno;
+        }
         
-        //falta eliminar (delete)
+        //falta eliminar (delete) con nonquery
 
         private static ETipoOrigen ValidarEnum(SqlDataReader lectorAuxiliar) 
         {

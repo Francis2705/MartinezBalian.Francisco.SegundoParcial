@@ -248,7 +248,7 @@ namespace CRUD_EmpresaElectronica
                 }
             }
         }
-        private void btnEliminar_Click(object sender, EventArgs e) //falta eliminar con base de datos
+        private void btnEliminar_Click(object sender, EventArgs e)
         {
             if (this.lstBoxObjetos.SelectedIndex == -1)
             {
@@ -257,11 +257,13 @@ namespace CRUD_EmpresaElectronica
             }
             else
             {
-                DialogResult resultado = MessageBox.Show("¿Estás seguro de que quieres eliminar este producto? Esta accion es irreversible",
-                "Confirmar eliminacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult resultado = MessageBox.Show("¿Estás seguro de que quieres eliminar este producto? Se va a eliminar de" +
+                    "la lista y de la base de datos definitivamente!", "Confirmar eliminacion", 
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (resultado == DialogResult.Yes)
                 {
+                    this.ado.EliminarDato((ArtefactoElectronico)lstBoxObjetos.SelectedItem);
                     this.empresaElectronica -= (ArtefactoElectronico)lstBoxObjetos.SelectedItem;
                     this.ActualizarVisor();
                 }
