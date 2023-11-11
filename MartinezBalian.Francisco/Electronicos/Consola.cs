@@ -14,7 +14,7 @@ namespace Electronicos
         //Atributos
         private bool aceptaDiscosFisicos;
         private double memoriaTotal;
-        private short velocidadDescargaMB;
+        private int velocidadDescargaMB;
 
         //Propiedades
         public bool AceptaDiscosFisicos
@@ -48,7 +48,7 @@ namespace Electronicos
                 }
             }
         }
-        public short VelocidadDescargaMB
+        public int VelocidadDescargaMB
         {
             get
             {
@@ -101,7 +101,7 @@ namespace Electronicos
         /// <param name="aceptaDiscosFisicos">Recibe si acepta discos fisicos o no</param>
         /// <param name="velocidadDescargaMB">Recibe la velocidad de descarga</param>
         public Consola(double precio, string nombre, string marca, ETipoOrigen tipoOrigen, bool aceptaDiscosFisicos,
-            short velocidadDescargaMB) : this(precio, nombre, marca, tipoOrigen, aceptaDiscosFisicos)
+            int velocidadDescargaMB) : this(precio, nombre, marca, tipoOrigen, aceptaDiscosFisicos)
         {
             this.VelocidadDescargaMB = velocidadDescargaMB;
         }
@@ -118,7 +118,7 @@ namespace Electronicos
         /// <param name="velocidadDescargaMB">Recibe la velocidad de descarga</param>
         /// <param name="memoriaTotal">Recibe la memoria total</param>
         public Consola(double precio, string nombre, string marca, ETipoOrigen tipoOrigen, bool aceptaDiscosFisicos,
-            short velocidadDescargaMB, double memoriaTotal) : this(precio, nombre, marca, tipoOrigen, 
+            int velocidadDescargaMB, double memoriaTotal) : this(precio, nombre, marca, tipoOrigen, 
                 aceptaDiscosFisicos, velocidadDescargaMB)
         {
             this.MemoriaTotal = memoriaTotal;

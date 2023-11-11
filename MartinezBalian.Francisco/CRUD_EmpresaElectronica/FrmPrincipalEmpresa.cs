@@ -22,9 +22,6 @@ namespace CRUD_EmpresaElectronica
     {
         private AccesoDatos ado = new AccesoDatos();
         private EmpresaElectronica empresaElectronica = new EmpresaElectronica("Comcelcon", "Francisco");
-
-        //aca serian listas de T generics
-        private List<Celular> listaCelulares;
         private bool error;
         private int cantidad;
 

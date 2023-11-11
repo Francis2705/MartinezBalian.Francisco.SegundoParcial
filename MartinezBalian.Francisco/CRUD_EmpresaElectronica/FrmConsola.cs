@@ -19,7 +19,7 @@ namespace CRUD_EmpresaElectronica
         public Consola consola;
         int precio;
         double memoriaTotal;
-        short velocidadDescargaMB;
+        int velocidadDescargaMB;
         bool aceptaDiscosFisicos = false;
         ETipoOrigen tipoOrigen;
         /// <summary>
@@ -61,7 +61,7 @@ namespace CRUD_EmpresaElectronica
         {
             if (!string.IsNullOrWhiteSpace(txtNombre.Text) && int.TryParse(txtPrecio.Text, out precio) &&
                 !string.IsNullOrWhiteSpace(txtMarca.Text) && double.TryParse(txtBoxMemoriaTotal.Text, out memoriaTotal) &&
-                short.TryParse(txtBoxVelocidadDescarga.Text, out velocidadDescargaMB) && cmBoxAceptaDiscosFisicos.Text != string.Empty &&
+                int.TryParse(txtBoxVelocidadDescarga.Text, out velocidadDescargaMB) && cmBoxAceptaDiscosFisicos.Text != string.Empty &&
                 cmBoxOrigen.Text != string.Empty)
             {
                 if (cmBoxAceptaDiscosFisicos.Text == "SI")
