@@ -89,6 +89,48 @@ namespace Electronicos
 
             return nuevaListaCelulares;
         }
+
+        public bool AgregarDato(ArtefactoElectronico artefacto)
+        {
+            string campos = "";
+            bool retorno = false;
+
+            if (artefacto is Celular)
+            {
+                Celular celu = ((Celular)artefacto);
+                campos = "Celular(precio,nombre,marca,tipoOrigen,asistenteVirtual,bateria,cantidadContactos) " +
+                    "VALUES()";
+            }
+            else if (artefacto is Computadora)
+            {
+
+            }
+            else
+            {
+
+            }
+
+
+            this.comando = new SqlCommand();
+            this.comando.CommandType = System.Data.CommandType.Text;
+            this.comando.CommandText = $"INSERT INTO {campos}";
+            this.comando.Connection = this.conexion;
+            this.conexion.Open();
+            int filasAfectadas = this.comando.ExecuteNonQuery();
+
+            if (filasAfectadas == 1)
+            {
+                retorno = true;
+            }
+
+            if (this.conexion.State == System.Data.ConnectionState.Open)
+            {
+                this.conexion.Close();
+            }
+
+            return retorno;
+        }
+
         private static ETipoOrigen ValidarEnum(SqlDataReader lectorAuxiliar)
         {
             if (lectorAuxiliar["tipoOrigen"].ToString() == "CHINO")

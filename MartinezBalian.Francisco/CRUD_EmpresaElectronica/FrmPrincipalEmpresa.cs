@@ -28,9 +28,6 @@ namespace CRUD_EmpresaElectronica
         private bool error;
         private int cantidad;
 
-        /// <summary>
-        /// Inicializa los componentes del formulario y setea el posible error en falso
-        /// </summary>
         public FrmPrincipalEmpresa() //cargo las listas FALTA LAS DE COMPU Y CONSOLA
         {
             InitializeComponent();
@@ -41,9 +38,6 @@ namespace CRUD_EmpresaElectronica
             this.Text = this.empresaElectronica.Nombre;
             this.error = false;
         }
-        /// <summary>
-        /// Limpia y actualiza el listBox de los productos
-        /// </summary>
         private void ActualizarVisor() //falta agregar las de compu y consola, y tambien tendria q agregar q no se repitan
         {
             lstBoxObjetos.Items.Clear();
@@ -58,13 +52,7 @@ namespace CRUD_EmpresaElectronica
                 }
             }
         }
-        /// <summary>
-        /// Cierra el formulario de empresa y sino hubo ningun error, serializa la lista de productos para guardar sus cambios.
-        /// Ademas, se hace uso de la clase SaveFileDialog para dar opcion a guardar el archivo en donde quiera la persona
-        /// </summary>
-        /// <param name="sender">Representa un objeto de cualquier tipo</param>
-        /// <param name="e">Representa un objeto de tipo FormClosingEventArgs</param>
-        private void FrmPrincipalEmpresa_FormClosing(object sender, FormClosingEventArgs e)
+        private void FrmPrincipalEmpresa_FormClosing(object sender, FormClosingEventArgs e) //sacar el savefiledialog
         {
             if (error)
             {
@@ -104,14 +92,7 @@ namespace CRUD_EmpresaElectronica
                 }
             }
         }
-        /// <summary>
-        /// Carga el formulario de empresa y sino hubo ningun error, deserializa el archivo xml para asi cargar su contenido en la lista
-        /// de productos de la empresa. Ademas, se hace uso de la clase OpenFileDialog para dar opcion a abrir un archivo por si existiese
-        /// mas de uno
-        /// </summary>
-        /// <param name="sender">Representa un objeto de cualquier tipo</param>
-        /// <param name="e">Representa un objeto de tipo EventArgs</param>
-        private void FrmPrincipalEmpresa_Load(object sender, EventArgs e)
+        private void FrmPrincipalEmpresa_Load(object sender, EventArgs e) //sacar el openfiledialog
         {
             UsuarioElectronico usuarioElectronico = FrmLogin.GetUsuarioElectronico();
 
@@ -136,6 +117,12 @@ namespace CRUD_EmpresaElectronica
                         {
                             this.empresaElectronica.ProductosElectronicos = (List<ArtefactoElectronico>)serializer.Deserialize(stream);
                         }
+
+                        foreach (Celular celu in listaCelulares)
+                        {
+                            this.empresaElectronica += celu; //ya aca valida q no este repetido
+                        }
+
                         this.ActualizarVisor();
                     }
                     catch (Exception ex)
@@ -152,21 +139,11 @@ namespace CRUD_EmpresaElectronica
                 }
             }
         }
-        /// <summary>
-        /// Llama la formulario de visualizador de usuarios logueados
-        /// </summary>
-        /// <param name="sender">Representa un objeto de cualquier tipo</param>
-        /// <param name="e">Representa un objeto de tipo EventArgs</param>
         private void btnVisualizadorUsuariosLogueo_Click(object sender, EventArgs e)
         {
             FrmVisualizadorUsuarios frmVisualizadorUsuarios = new FrmVisualizadorUsuarios();
             frmVisualizadorUsuarios.ShowDialog();
         }
-        /// <summary>
-        /// Muestra las caracteristicas especificas del producto seleccionado
-        /// </summary>
-        /// <param name="sender">Representa un objeto de cualquier tipo</param>
-        /// <param name="e">Representa un objeto de tipo EventArgs</param>
         private void btnMostrarCaracteristicasEspecificas_Click(object sender, EventArgs e)
         {
             if (this.lstBoxObjetos.SelectedIndex == -1)
@@ -180,11 +157,6 @@ namespace CRUD_EmpresaElectronica
                     "Caracteristicas especificas", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-        /// <summary>
-        /// Ordena la lista de productos segun el criterio seleccionado
-        /// </summary>
-        /// <param name="sender">Representa un objeto de cualquier tipo</param>
-        /// <param name="e">Representa un objeto de tipo EventArgs</param>
         private void btnOrdenar_Click(object sender, EventArgs e)
         {
             if (this.rbNombreAscendentemente.Checked == true)
@@ -205,12 +177,7 @@ namespace CRUD_EmpresaElectronica
             }
             this.ActualizarVisor();
         }
-        /// <summary>
-        /// Instancia el formulario del producto que se quiera agregar y agrega un producto inexistente a la lista
-        /// </summary>
-        /// <param name="sender">Representa un objeto de cualquier tipo</param>
-        /// <param name="e">Representa un objeto de tipo EventArgs</param>
-        private void btnAgregar_Click(object sender, EventArgs e)
+        private void btnAgregar_Click(object sender, EventArgs e) //aca los agrego a la lista de cada uno (falta hacer)
         {
             if (cmBoxProductos.SelectedItem != null)
             {
@@ -226,6 +193,13 @@ namespace CRUD_EmpresaElectronica
                         this.cantidad = empresaElectronica.ProductosElectronicos.Count;
                         this.empresaElectronica += frmCeluar.celular; //empresaElectronica.ProductosElectronicos.Add(frmCeluar.celular);
                         this.ValidarProducto();
+
+                        if (ado.AgregarDato(frmCeluar.celular))
+                        {
+                            MessageBox.Show("se agrego");
+                        }
+
+
                     }
                 }
                 else if (opcionSeleccionada == "Computadora")
@@ -259,11 +233,6 @@ namespace CRUD_EmpresaElectronica
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        /// <summary>
-        /// Instancia el formulario del producto que se quiera modificar y modifica dicho producto
-        /// </summary>
-        /// <param name="sender">Representa un objeto de cualquier tipo</param>
-        /// <param name="e">Representa un objeto de tipo EventArgs</param>
         private void btnModificar_Click(object sender, EventArgs e)
         {
             if (this.lstBoxObjetos.SelectedIndex == -1)
@@ -314,11 +283,6 @@ namespace CRUD_EmpresaElectronica
                 }
             }
         }
-        /// <summary>
-        /// Elimina un producto existente en la lista
-        /// </summary>
-        /// <param name="sender">Representa un objeto de cualquier tipo</param>
-        /// <param name="e">Representa un objeto de tipo EventArgs</param>
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             if (this.lstBoxObjetos.SelectedIndex == -1)
@@ -338,9 +302,6 @@ namespace CRUD_EmpresaElectronica
                 }
             }
         }
-        /// <summary>
-        /// Valida si el producto se agrego o no a la lista
-        /// </summary>
         private void ValidarProducto()
         {
             if (this.cantidad == this.empresaElectronica.ProductosElectronicos.Count)
