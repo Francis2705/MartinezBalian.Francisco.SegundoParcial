@@ -109,7 +109,7 @@ namespace CRUD_EmpresaElectronica
             }
             this.ActualizarVisor();
         }
-        private void btnAgregar_Click(object sender, EventArgs e) //aca los agrego a la lista de cada uno (falta hacer)
+        private void btnAgregar_Click(object sender, EventArgs e)
         {
             if (cmBoxProductos.SelectedItem != null)
             {
@@ -124,11 +124,13 @@ namespace CRUD_EmpresaElectronica
                     {
                         this.cantidad = empresaElectronica.ProductosElectronicos.Count;
                         this.empresaElectronica += frmCeluar.celular;
-                        this.ValidarProducto();
 
-                        if (ado.AgregarDato(frmCeluar.celular))
+                        if (this.ValidarAgregadoProducto())
                         {
-                            MessageBox.Show("se agrego");
+                            if (ado.AgregarDato(frmCeluar.celular))
+                            {
+                                MessageBox.Show("Se agrego exitosamente a la lista y a la base de datos!");
+                            }
                         }
                     }
                 }
@@ -141,7 +143,14 @@ namespace CRUD_EmpresaElectronica
                     {
                         this.cantidad = empresaElectronica.ProductosElectronicos.Count;
                         this.empresaElectronica += frmComputadora.computadora;
-                        this.ValidarProducto();
+
+                        if (this.ValidarAgregadoProducto())
+                        {
+                            if (ado.AgregarDato(frmComputadora.computadora))
+                            {
+                                MessageBox.Show("Se agrego exitosamente a la base de datos!");
+                            }
+                        }
                     }
                 }
                 else if (opcionSeleccionada == "Consola")
@@ -153,7 +162,14 @@ namespace CRUD_EmpresaElectronica
                     {
                         this.cantidad = empresaElectronica.ProductosElectronicos.Count;
                         this.empresaElectronica += frmConsola.consola;
-                        this.ValidarProducto();
+
+                        if (this.ValidarAgregadoProducto())
+                        {
+                            if (ado.AgregarDato(frmConsola.consola))
+                            {
+                                MessageBox.Show("Se agrego exitosamente a la base de datos!");
+                            }
+                        }
                     }
                 }
             }
@@ -163,7 +179,7 @@ namespace CRUD_EmpresaElectronica
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void btnModificar_Click(object sender, EventArgs e)
+        private void btnModificar_Click(object sender, EventArgs e) //falta modificar con base de datos
         {
             if (this.lstBoxObjetos.SelectedIndex == -1)
             {
@@ -213,7 +229,7 @@ namespace CRUD_EmpresaElectronica
                 }
             }
         }
-        private void btnEliminar_Click(object sender, EventArgs e)
+        private void btnEliminar_Click(object sender, EventArgs e) //falta eliminar con base de datos
         {
             if (this.lstBoxObjetos.SelectedIndex == -1)
             {
@@ -232,15 +248,17 @@ namespace CRUD_EmpresaElectronica
                 }
             }
         }
-        private void ValidarProducto()
+        private bool ValidarAgregadoProducto()
         {
             if (this.cantidad == this.empresaElectronica.ProductosElectronicos.Count)
             {
-                MessageBox.Show("Error, producto existente");
+                MessageBox.Show("Error, producto existente, no se pudo agregar ni a la lista ni a la base de datos");
+                return false;
             }
             else
             {
                 this.ActualizarVisor();
+                return true;
             }
         }
     }

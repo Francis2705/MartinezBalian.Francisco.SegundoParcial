@@ -26,33 +26,8 @@ namespace Electronicos
             this.conexion = new SqlConnection(AccesoDatos.cadena_conexion);
         }
 
-        /*public bool PruebaConexion()
-        {
-            bool retorno = false;
-
-            try
-            {
-                this.conexion.Open();
-                retorno = true;
-            }
-            catch (Exception)
-            {
-
-            }
-            finally
-            {
-                if (this.conexion.State == System.Data.ConnectionState.Open)
-                {
-                    this.conexion.Close();
-                }
-            }
-
-            return retorno;
-        }*/
-
-
         public List<ArtefactoElectronico> ObtenerTodasLasListas(List<ArtefactoElectronico> lista, 
-            bool celu, bool compu, bool conso)
+            bool celu, bool compu, bool conso) //SELECT 
         {
             string campos = "";
 
@@ -133,7 +108,7 @@ namespace Electronicos
             return lista;
         }
 
-        public bool AgregarDato(ArtefactoElectronico artefacto)
+        public bool AgregarDato(ArtefactoElectronico artefacto) //INSERT 
         {
             string campos = "";
             bool retorno = false;
@@ -154,11 +129,29 @@ namespace Electronicos
             }
             else if (artefacto is Computadora)
             {
-
+                Computadora compu = ((Computadora)artefacto);
+                this.comando.Parameters.AddWithValue("@precio", compu.Precio);
+                this.comando.Parameters.AddWithValue("@nombre", compu.Nombre);
+                this.comando.Parameters.AddWithValue("@marca", compu.Marca);
+                this.comando.Parameters.AddWithValue("@tipoOrigen", compu.TipoOrigen.ToString());
+                this.comando.Parameters.AddWithValue("@esTactil", compu.EsTactil);
+                this.comando.Parameters.AddWithValue("@cantidadNucleos", compu.CantidadNucleos);
+                this.comando.Parameters.AddWithValue("@espacioDiscoSSD", compu.EspacioDiscoSSD);
+                campos = "Computadora(precio,nombre,marca,tipoOrigen,esTactil,cantidadNucleos,espacioDiscoSSD) " +
+                    "VALUES(@precio, @nombre, @marca, @tipoOrigen, @esTactil, @cantidadNucleos, @espacioDiscoSSD)";
             }
-            else
+            else if (artefacto is Consola)
             {
-
+                Consola conso = ((Consola)artefacto);
+                this.comando.Parameters.AddWithValue("@precio", conso.Precio);
+                this.comando.Parameters.AddWithValue("@nombre", conso.Nombre);
+                this.comando.Parameters.AddWithValue("@marca", conso.Marca);
+                this.comando.Parameters.AddWithValue("@tipoOrigen", conso.TipoOrigen.ToString());
+                this.comando.Parameters.AddWithValue("@aceptaDiscosFisicos", conso.AceptaDiscosFisicos);
+                this.comando.Parameters.AddWithValue("@memoriaTotal", conso.MemoriaTotal);
+                this.comando.Parameters.AddWithValue("@velocidadDescargaMB", conso.VelocidadDescargaMB);
+                campos = "Consola(precio,nombre,marca,tipoOrigen,aceptaDiscosFisicos,memoriaTotal,velocidadDescargaMB) " +
+                    "VALUES(@precio, @nombre, @marca, @tipoOrigen, @aceptaDiscosFisicos, @memoriaTotal, @velocidadDescargaMB)";
             }
 
             this.comando.CommandType = System.Data.CommandType.Text;
@@ -179,6 +172,9 @@ namespace Electronicos
 
             return retorno;
         }
+
+        //falta modificar (update)
+        //falta eliminar (delete)
 
         private static ETipoOrigen ValidarEnum(SqlDataReader lectorAuxiliar)
         {
@@ -203,5 +199,29 @@ namespace Electronicos
                 return ETipoOrigen.INTERNACIONAL;
             }
         }
+
+        /*public bool PruebaConexion()
+        {
+            bool retorno = false;
+
+            try
+            {
+                this.conexion.Open();
+                retorno = true;
+            }
+            catch (Exception)
+            {
+
+            }
+            finally
+            {
+                if (this.conexion.State == System.Data.ConnectionState.Open)
+                {
+                    this.conexion.Close();
+                }
+            }
+
+            return retorno;
+        }*/
     }
 }
