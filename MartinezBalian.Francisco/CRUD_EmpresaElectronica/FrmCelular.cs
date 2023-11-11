@@ -18,7 +18,7 @@ namespace CRUD_EmpresaElectronica
     public partial class FrmCelular : FrmAgregar
     {
         public Celular celular;
-        int precio;
+        float precio;
         int bateria;
         int cantidadContactos;
         bool asistente = false;
@@ -62,7 +62,7 @@ namespace CRUD_EmpresaElectronica
         /// <param name="e">Representa un objeto de tipo EventArgs</param>
         protected override void btnConfirmar_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(txtNombre.Text) && int.TryParse(txtPrecio.Text, out precio) &&
+            if (!string.IsNullOrWhiteSpace(txtNombre.Text) && float.TryParse(txtPrecio.Text, out precio) &&
                 !string.IsNullOrWhiteSpace(txtMarca.Text) && int.TryParse(txtBateria.Text, out bateria) &&
                 int.TryParse(txtCantidadContactos.Text, out cantidadContactos) && cmBoxAsistenteVirtual.Text != string.Empty &&
                 cmBoxOrigen.Text != string.Empty)

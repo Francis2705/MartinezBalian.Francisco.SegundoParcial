@@ -17,7 +17,7 @@ namespace CRUD_EmpresaElectronica
     public partial class FrmConsola : FrmAgregar
     {
         public Consola consola;
-        int precio;
+        float precio;
         double memoriaTotal;
         int velocidadDescargaMB;
         bool aceptaDiscosFisicos = false;
@@ -61,10 +61,10 @@ namespace CRUD_EmpresaElectronica
         /// <param name="e">Representa un objeto de tipo EventArgs</param>
         protected override void btnConfirmar_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(txtNombre.Text) && int.TryParse(txtPrecio.Text, out precio) &&
+            if (!string.IsNullOrWhiteSpace(txtNombre.Text) && float.TryParse(txtPrecio.Text, out precio) &&
                 !string.IsNullOrWhiteSpace(txtMarca.Text) && double.TryParse(txtBoxMemoriaTotal.Text, out memoriaTotal) &&
-                int.TryParse(txtBoxVelocidadDescarga.Text, out velocidadDescargaMB) && cmBoxAceptaDiscosFisicos.Text != string.Empty &&
-                cmBoxOrigen.Text != string.Empty)
+                int.TryParse(txtBoxVelocidadDescarga.Text, out velocidadDescargaMB) && 
+                cmBoxAceptaDiscosFisicos.Text != string.Empty && cmBoxOrigen.Text != string.Empty)
             {
                 if (cmBoxAceptaDiscosFisicos.Text == "SI")
                 {

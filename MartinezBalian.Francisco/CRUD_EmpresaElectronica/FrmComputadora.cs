@@ -17,7 +17,7 @@ namespace CRUD_EmpresaElectronica
     public partial class FrmComputadora : FrmAgregar
     {
         public Computadora computadora;
-        int precio;
+        float precio;
         int cantidadNucleos;
         double espacioDiscoSDD;
         bool tactil = false;
@@ -61,7 +61,7 @@ namespace CRUD_EmpresaElectronica
         /// <param name="e">Representa un objeto de tipo EventArgs</param>
         protected override void btnConfirmar_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(txtNombre.Text) && int.TryParse(txtPrecio.Text, out precio) &&
+            if (!string.IsNullOrWhiteSpace(txtNombre.Text) && float.TryParse(txtPrecio.Text, out precio) &&
                 !string.IsNullOrWhiteSpace(txtMarca.Text) && int.TryParse(txtBoxCantidadNucleos.Text, out cantidadNucleos) &&
                 double.TryParse(txtBoxSDD.Text, out espacioDiscoSDD) && cbBoxTactil.Text != string.Empty &&
                 cmBoxOrigen.Text != string.Empty)
