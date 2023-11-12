@@ -10,7 +10,7 @@ namespace Electronicos
     /// <summary>
     /// Representa una emmpresa electronica que contendria artefactos electronicos
     /// </summary>
-    public sealed class EmpresaElectronica
+    public sealed class EmpresaElectronica<T> where T : ArtefactoElectronico
     {
         //Atributos
         private string nombre;
@@ -18,15 +18,15 @@ namespace Electronicos
         private List<ArtefactoElectronico> productosElectronicos;
 
         //Propiedades
-        public string Nombre
+        public string Nombre 
         {
             get { return nombre; }
         }
-        public string Creador
+        public string Creador 
         {
             get { return creador; }
         }
-        public List<ArtefactoElectronico> ProductosElectronicos
+        public List<ArtefactoElectronico> ProductosElectronicos 
         {
             get { return productosElectronicos; }
             set { productosElectronicos = value;}

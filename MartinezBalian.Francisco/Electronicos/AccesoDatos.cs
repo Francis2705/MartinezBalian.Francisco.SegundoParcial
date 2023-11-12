@@ -27,7 +27,7 @@ namespace Electronicos
             this.conexion = new SqlConnection(AccesoDatos.cadena_conexion);
         }
 
-        public List<ArtefactoElectronico> ObtenerTodasLasListas(List<ArtefactoElectronico> lista, 
+        public List<ArtefactoElectronico> ObtenerTodasLasListas(List<ArtefactoElectronico> lista,
             bool celu, bool compu, bool conso) //SELECT 
         {
             string campos = "";
@@ -244,7 +244,7 @@ namespace Electronicos
 
             return retorno;
         }
-        public bool EliminarDato(ArtefactoElectronico artefacto)
+        public bool EliminarDato(ArtefactoElectronico artefacto) //DELETE 
         {
             int id = artefacto.ID;
             bool retorno = false;
@@ -282,8 +282,6 @@ namespace Electronicos
 
             return retorno;
         }
-        
-        //falta eliminar (delete) con nonquery
 
         private static ETipoOrigen ValidarEnum(SqlDataReader lectorAuxiliar) 
         {
