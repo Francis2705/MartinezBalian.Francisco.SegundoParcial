@@ -10,7 +10,7 @@ namespace CRUD_EmpresaElectronica
     public partial class FrmLogin : Form
     {
         private List<UsuarioElectronico> listaUsuarios = new List<UsuarioElectronico>();
-        static UsuarioElectronico usuarioLogueado = null;
+        private static UsuarioElectronico usuarioLogueado = null;
         /// <summary>
         /// Inicializa los componentes del formulario
         /// </summary>
