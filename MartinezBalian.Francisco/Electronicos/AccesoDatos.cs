@@ -45,69 +45,79 @@ namespace Electronicos
                 campos = "id,precio,nombre,marca,tipoOrigen,aceptaDiscosFisicos,memoriaTotal,velocidadDescargaMB FROM Consola";
             }
 
-            this.comando = new SqlCommand();
-            this.comando.CommandType = System.Data.CommandType.Text; //indica que se va a ejecutar una query
-            this.comando.CommandText = $"SELECT {campos}"; //consulta SELECT
-            this.comando.Connection = this.conexion; //objeto que va a tener q estar activo para que se ejecute el comando
-            this.conexion.Open();
-            this.lector = this.comando.ExecuteReader(); //devuelve la tabla que leyo con sus distintos atributos
-
-            if (celu)
+            try
             {
-                while (this.lector.Read())
-                {
-                    Celular celular = new Celular();
-                    celular.ID = (int)this.lector["id"];
-                    celular.Precio = (double)this.lector["precio"];
-                    celular.Nombre = (string)this.lector["nombre"];
-                    celular.Marca = (string)this.lector["marca"];
-                    celular.TipoOrigen = AccesoDatos.ValidarEnum(this.lector);
-                    celular.AsistenteVirtual = (bool)this.lector["asistenteVirtual"];
-                    celular.Bateria = (int)this.lector["bateria"];
-                    celular.CantidadContactos = (int)this.lector["cantidadContactos"];
+                this.comando = new SqlCommand();
+                this.comando.CommandType = System.Data.CommandType.Text; //indica que se va a ejecutar una query
+                this.comando.CommandText = $"SELECT {campos}"; //consulta SELECT
+                this.comando.Connection = this.conexion; //objeto que va a tener q estar activo para que se ejecute el comando
+                this.conexion.Open();
+                this.lector = this.comando.ExecuteReader(); //devuelve la tabla que leyo con sus distintos atributos
 
-                    lista.Add(celular);
+                if (celu)
+                {
+                    while (this.lector.Read())
+                    {
+                        Celular celular = new Celular();
+                        celular.ID = (int)this.lector["id"];
+                        celular.Precio = (double)this.lector["precio"];
+                        celular.Nombre = (string)this.lector["nombre"];
+                        celular.Marca = (string)this.lector["marca"];
+                        celular.TipoOrigen = AccesoDatos.ValidarEnum(this.lector);
+                        celular.AsistenteVirtual = (bool)this.lector["asistenteVirtual"];
+                        celular.Bateria = (int)this.lector["bateria"];
+                        celular.CantidadContactos = (int)this.lector["cantidadContactos"];
+
+                        lista.Add(celular);
+                    }
+                }
+                else if (compu)
+                {
+                    while (this.lector.Read())
+                    {
+                        Computadora computadora = new Computadora();
+                        computadora.ID = (int)this.lector["id"];
+                        computadora.Precio = (double)this.lector["precio"];
+                        computadora.Nombre = (string)this.lector["nombre"];
+                        computadora.Marca = (string)this.lector["marca"];
+                        computadora.TipoOrigen = AccesoDatos.ValidarEnum(this.lector);
+                        computadora.EsTactil = (bool)this.lector["esTactil"];
+                        computadora.CantidadNucleos = (int)this.lector["cantidadNucleos"];
+                        computadora.EspacioDiscoSSD = (double)this.lector["espacioDiscoSSD"];
+
+                        lista.Add(computadora);
+                    }
+                }
+                else if (conso)
+                {
+                    while (this.lector.Read())
+                    {
+                        Consola consola = new Consola();
+                        consola.ID = (int)this.lector["id"];
+                        consola.Precio = (double)this.lector["precio"];
+                        consola.Nombre = (string)this.lector["nombre"];
+                        consola.Marca = (string)this.lector["marca"];
+                        consola.TipoOrigen = AccesoDatos.ValidarEnum(this.lector);
+                        consola.AceptaDiscosFisicos = (bool)this.lector["aceptaDiscosFisicos"];
+                        consola.MemoriaTotal = (double)this.lector["memoriaTotal"];
+                        consola.VelocidadDescargaMB = (int)this.lector["velocidadDescargaMB"];
+
+                        lista.Add(consola);
+                    }
                 }
             }
-            else if (compu)
+            catch (Exception ex)
             {
-                while (this.lector.Read())
-                {
-                    Computadora computadora = new Computadora();
-                    computadora.ID = (int)this.lector["id"];
-                    computadora.Precio = (double)this.lector["precio"];
-                    computadora.Nombre = (string)this.lector["nombre"];
-                    computadora.Marca = (string)this.lector["marca"];
-                    computadora.TipoOrigen = AccesoDatos.ValidarEnum(this.lector);
-                    computadora.EsTactil = (bool)this.lector["esTactil"];
-                    computadora.CantidadNucleos = (int)this.lector["cantidadNucleos"];
-                    computadora.EspacioDiscoSSD = (double)this.lector["espacioDiscoSSD"];
 
-                    lista.Add(computadora);
-                }
             }
-            else if (conso)
+            finally
             {
-                while (this.lector.Read())
+                this.lector.Close();
+
+                if (this.conexion.State == System.Data.ConnectionState.Open)
                 {
-                    Consola consola = new Consola();
-                    consola.ID = (int)this.lector["id"];
-                    consola.Precio = (double)this.lector["precio"];
-                    consola.Nombre = (string)this.lector["nombre"];
-                    consola.Marca = (string)this.lector["marca"];
-                    consola.TipoOrigen = AccesoDatos.ValidarEnum(this.lector);
-                    consola.AceptaDiscosFisicos = (bool)this.lector["aceptaDiscosFisicos"];
-                    consola.MemoriaTotal = (double)this.lector["memoriaTotal"];
-                    consola.VelocidadDescargaMB = (int)this.lector["velocidadDescargaMB"];
-
-                    lista.Add(consola);
+                    this.conexion.Close();
                 }
-            }
-
-            this.lector.Close();
-            if (this.conexion.State == System.Data.ConnectionState.Open)
-            {
-                this.conexion.Close();
             }
             return lista;
         }

@@ -26,7 +26,7 @@ namespace CRUD_EmpresaElectronica
         private UsuarioElectronico usuarioElectronico = FrmLogin.GetUsuarioElectronico();
         private int cantidad;
 
-        public FrmPrincipalEmpresa()
+        public FrmPrincipalEmpresa() //Excepcion de sistema (en AccesoDatos, ObtenerTodasLasListas)
         {
             InitializeComponent();
             this.empresaElectronica.ProductosElectronicos = this.ado.ObtenerTodasLasListas(this.empresaElectronica.ProductosElectronicos,
@@ -72,17 +72,29 @@ namespace CRUD_EmpresaElectronica
             this.ActualizarVisor();
 
         }
-        private void btnVisualizadorUsuariosLogueo_Click(object sender, EventArgs e)
+        private void btnVisualizadorUsuariosLogueo_Click(object sender, EventArgs e) //Excepcion de sistema (en el form)
         {
             FrmVisualizadorUsuarios frmVisualizadorUsuarios = new FrmVisualizadorUsuarios();
             frmVisualizadorUsuarios.ShowDialog();
         }
-        private void btnMostrarCaracteristicasEspecificas_Click(object sender, EventArgs e) //aca podria hacer lo de interfacez
+        private void btnMostrarCaracteristicasEspecificas_Click(object sender, EventArgs e) //Excepcion propia y de sistema
         {
             if (this.lstBoxObjetos.SelectedIndex == -1)
             {
-                MessageBox.Show("Debe seleccionar un producto para ver sus caracteristicas especificas", "Error",
+                try
+                {
+                    throw new OpcionNoSeleccionadaException();
+                }
+                catch (OpcionNoSeleccionadaException ex)
+                {
+                    MessageBox.Show(OpcionNoSeleccionadaException.InformacionOpcionNoSeleccionada(ex), "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error inesperado: {ex.Message}\nLlamar urgente al tecnico!", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else
             {
@@ -107,6 +119,10 @@ namespace CRUD_EmpresaElectronica
             else if (this.rbPrecioDescendentemente.Checked == true)
             {
                 empresaElectronica.ProductosElectronicos.Sort(EmpresaElectronica<ArtefactoElectronico>.OrdenarArtefactosPorPrecioDescendente);
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar un criterio de ordenamiento", "Ordenar", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             this.ActualizarVisor();
         }
@@ -258,7 +274,7 @@ namespace CRUD_EmpresaElectronica
             }
             else
             {
-                DialogResult resultado = MessageBox.Show("¿Estás seguro de que quieres eliminar este producto? Se va a eliminar de" +
+                DialogResult resultado = MessageBox.Show("¿Estás seguro de que quieres eliminar este producto? Se va a eliminar de " +
                     "la lista y de la base de datos definitivamente!", "Confirmar eliminacion", 
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 

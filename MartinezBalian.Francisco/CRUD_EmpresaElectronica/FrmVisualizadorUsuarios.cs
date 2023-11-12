@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Electronicos;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,6 +17,7 @@ namespace CRUD_EmpresaElectronica
     /// </summary>
     public partial class FrmVisualizadorUsuarios : Form
     {
+        private string info;
         /// <summary>
         /// Inicializa los componentes del formulario
         /// </summary>
@@ -32,11 +34,23 @@ namespace CRUD_EmpresaElectronica
         private void FrmVisualizadorUsuarios_Load(object sender, EventArgs e)
         {
             Encoding miCodificacion = Encoding.UTF8;
-            string info;
 
-            using (StreamReader sr = new StreamReader(@"../../../../usuarios.log", miCodificacion))
+            try
             {
-                info = sr.ReadToEnd();
+                using (StreamReader sr = new StreamReader(@"../../../../usuarios.log", miCodificacion))
+                {
+                    info = sr.ReadToEnd();
+                }
+            }
+            catch (FileNotFoundException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
             }
 
             this.richTxtBoxInfoLogueos.ReadOnly = true;

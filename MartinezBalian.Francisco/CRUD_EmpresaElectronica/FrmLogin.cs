@@ -46,7 +46,7 @@ namespace CRUD_EmpresaElectronica
         /// </summary>
         /// <param name="sender">Representa un objeto de cualquier tipo</param>
         /// <param name="e">Representa un objeto de tipo EventArgs</param>
-        private void btnIngresar_Click(object sender, EventArgs e)
+        private void btnIngresar_Click(object sender, EventArgs e) //Excepcion propia y de sistema 
         {
             bool usuarioValido = false;
 
@@ -89,7 +89,22 @@ namespace CRUD_EmpresaElectronica
             }
             else
             {
-                MessageBox.Show("Nombre de usuario o clave incorrectos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                try
+                {
+                    throw new UsuarioIncorrectoException();
+                }
+                catch (UsuarioIncorrectoException ex)
+                {
+                    MessageBox.Show(UsuarioIncorrectoException.RetornarInformacionExcepcion(ex),
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error inesperado: {ex.Message}\nLlamar urgente al tecnico!", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                //MessageBox.Show("Nombre de usuario o clave incorrectos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         /// <summary>
