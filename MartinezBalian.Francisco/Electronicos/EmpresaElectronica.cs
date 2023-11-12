@@ -15,7 +15,7 @@ namespace Electronicos
         //Atributos
         private string nombre;
         private string creador;
-        private List<ArtefactoElectronico> productosElectronicos;
+        private List<T> productosElectronicos;
 
         //Propiedades
         public string Nombre 
@@ -26,7 +26,7 @@ namespace Electronicos
         {
             get { return creador; }
         }
-        public List<ArtefactoElectronico> ProductosElectronicos 
+        public List<T> ProductosElectronicos 
         {
             get { return productosElectronicos; }
             set { productosElectronicos = value;}
@@ -39,15 +39,15 @@ namespace Electronicos
         /// <param name="creador">Recibe el nombre del creador</param>
         public EmpresaElectronica(string nombre, string creador)
         {
-            this.productosElectronicos = new List<ArtefactoElectronico>();
+            this.productosElectronicos = new List<T>();
             this.nombre = nombre;
             this.creador = creador;
         }
 
         //Sobrecarga del operador ==
-        public static bool operator ==(EmpresaElectronica e, ArtefactoElectronico a)
+        public static bool operator ==(EmpresaElectronica<T> e, T a)
         {
-            foreach (ArtefactoElectronico artefacto in e.productosElectronicos)
+            foreach (T artefacto in e.productosElectronicos)
             {
                 /*if (a == artefacto)
                 {
@@ -60,7 +60,7 @@ namespace Electronicos
             }
             return false;
         }
-        public static bool operator !=(EmpresaElectronica e, ArtefactoElectronico a)
+        public static bool operator !=(EmpresaElectronica<T> e, T a)
         {
             return !(e == a);
         }
@@ -72,7 +72,7 @@ namespace Electronicos
         /// <returns>Retorna true si el objeto esta en la empresa (relacion con el ==)</returns>
         public override bool Equals(object? obj)
         {
-            return this == (ArtefactoElectronico)obj;
+            return this == (T)obj;
         }
         /// <summary>
         /// Sobrescritura del GetHashCode()
@@ -92,7 +92,7 @@ namespace Electronicos
         }
 
         //Sobrecarga del operador + y -
-        public static EmpresaElectronica operator +(EmpresaElectronica e, ArtefactoElectronico a)
+        public static EmpresaElectronica<T> operator +(EmpresaElectronica<T> e, T a)
         {
             if (e != a)
             {
@@ -100,7 +100,7 @@ namespace Electronicos
             }
             return e;
         }
-        public static EmpresaElectronica operator -(EmpresaElectronica e, ArtefactoElectronico a)
+        public static EmpresaElectronica<T> operator -(EmpresaElectronica<T> e, T a)
         {
             if (e == a)
             {
@@ -110,19 +110,19 @@ namespace Electronicos
         }
 
         //Metodos ordenamientos
-        public static int OrdenarArtefactosPorNombreAscendente(ArtefactoElectronico art1, ArtefactoElectronico art2)
+        public static int OrdenarArtefactosPorNombreAscendente(T art1, T art2)
         {
             return String.Compare(art1.Nombre, art2.Nombre);
         }
-        public static int OrdenarArtefactosPorNombreDescendente(ArtefactoElectronico art1, ArtefactoElectronico art2)
+        public static int OrdenarArtefactosPorNombreDescendente(T art1, T art2)
         {
             return String.Compare(art2.Nombre, art1.Nombre);
         }
-        public static int OrdenarArtefactosPorPrecioAscendente(ArtefactoElectronico art1, ArtefactoElectronico art2)
+        public static int OrdenarArtefactosPorPrecioAscendente(T art1, T art2)
         {
             return art1.Precio.CompareTo(art2.Precio);
         }
-        public static int OrdenarArtefactosPorPrecioDescendente(ArtefactoElectronico art1, ArtefactoElectronico art2)
+        public static int OrdenarArtefactosPorPrecioDescendente(T art1, T art2)
         {
             return art2.Precio.CompareTo(art1.Precio);
         }

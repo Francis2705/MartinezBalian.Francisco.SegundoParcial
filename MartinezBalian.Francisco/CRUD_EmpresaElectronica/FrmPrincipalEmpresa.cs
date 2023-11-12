@@ -21,7 +21,8 @@ namespace CRUD_EmpresaElectronica
     public partial class FrmPrincipalEmpresa : Form
     {
         private AccesoDatos ado = new AccesoDatos();
-        private EmpresaElectronica empresaElectronica = new EmpresaElectronica("Comcelcon", "Francisco");
+        private EmpresaElectronica<ArtefactoElectronico> empresaElectronica = new EmpresaElectronica<ArtefactoElectronico>
+            ("Comcelcon", "Francisco");
         private UsuarioElectronico usuarioElectronico = FrmLogin.GetUsuarioElectronico();
         private int cantidad;
 
@@ -76,7 +77,7 @@ namespace CRUD_EmpresaElectronica
             FrmVisualizadorUsuarios frmVisualizadorUsuarios = new FrmVisualizadorUsuarios();
             frmVisualizadorUsuarios.ShowDialog();
         }
-        private void btnMostrarCaracteristicasEspecificas_Click(object sender, EventArgs e)
+        private void btnMostrarCaracteristicasEspecificas_Click(object sender, EventArgs e) //aca podria hacer lo de interfacez
         {
             if (this.lstBoxObjetos.SelectedIndex == -1)
             {
@@ -93,19 +94,19 @@ namespace CRUD_EmpresaElectronica
         {
             if (this.rbNombreAscendentemente.Checked == true)
             {
-                empresaElectronica.ProductosElectronicos.Sort(EmpresaElectronica.OrdenarArtefactosPorNombreAscendente);
+                empresaElectronica.ProductosElectronicos.Sort(EmpresaElectronica<ArtefactoElectronico>.OrdenarArtefactosPorNombreAscendente);
             }
             else if (this.rbNombreDescendentemente.Checked == true)
             {
-                empresaElectronica.ProductosElectronicos.Sort(EmpresaElectronica.OrdenarArtefactosPorNombreDescendente);
+                empresaElectronica.ProductosElectronicos.Sort(EmpresaElectronica<ArtefactoElectronico>.OrdenarArtefactosPorNombreDescendente);
             }
             else if (this.rbPrecioAscendentemente.Checked == true)
             {
-                empresaElectronica.ProductosElectronicos.Sort(EmpresaElectronica.OrdenarArtefactosPorPrecioAscendente);
+                empresaElectronica.ProductosElectronicos.Sort(EmpresaElectronica<ArtefactoElectronico>.OrdenarArtefactosPorPrecioAscendente);
             }
             else if (this.rbPrecioDescendentemente.Checked == true)
             {
-                empresaElectronica.ProductosElectronicos.Sort(EmpresaElectronica.OrdenarArtefactosPorPrecioDescendente);
+                empresaElectronica.ProductosElectronicos.Sort(EmpresaElectronica<ArtefactoElectronico>.OrdenarArtefactosPorPrecioDescendente);
             }
             this.ActualizarVisor();
         }
