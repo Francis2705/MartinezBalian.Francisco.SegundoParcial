@@ -7,10 +7,6 @@ namespace Electronicos
     /// <summary>
     /// Clase que representa un artefacto electronico (un celular, una computadora o una consola)
     /// </summary>
-    [XmlInclude(typeof(Celular))]
-    [XmlInclude(typeof(Consola))]
-    [XmlInclude(typeof(Computadora))]
-    [XmlRoot("ArtefactosElectronicos")]
     public abstract class ArtefactoElectronico
     {
         //Atributos

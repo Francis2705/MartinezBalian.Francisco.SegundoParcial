@@ -10,7 +10,7 @@ namespace Electronicos
     /// <summary>
     /// Representa una emmpresa electronica que contendria artefactos electronicos
     /// </summary>
-    public sealed class EmpresaElectronica<T> where T : ArtefactoElectronico
+    public sealed class EmpresaElectronica<T> : IUnicoID<T> where T : ArtefactoElectronico
     {
         //Atributos
         private string nombre;
@@ -125,6 +125,11 @@ namespace Electronicos
         public static int OrdenarArtefactosPorPrecioDescendente(T art1, T art2)
         {
             return art2.Precio.CompareTo(art1.Precio);
+        }
+
+        public string RetornarDataDeId(T art)
+        {
+            return $"Numero de ID unico: {art.ID}";
         }
     }
 }

@@ -26,7 +26,7 @@ namespace CRUD_EmpresaElectronica
         private UsuarioElectronico usuarioElectronico = FrmLogin.GetUsuarioElectronico();
         private int cantidad;
 
-        public FrmPrincipalEmpresa() //Excepcion de sistema (en AccesoDatos, ObtenerTodasLasListas)
+        public FrmPrincipalEmpresa()
         {
             InitializeComponent();
             this.empresaElectronica.ProductosElectronicos = this.ado.ObtenerTodasLasListas(this.empresaElectronica.ProductosElectronicos,
@@ -72,12 +72,12 @@ namespace CRUD_EmpresaElectronica
             this.ActualizarVisor();
 
         }
-        private void btnVisualizadorUsuariosLogueo_Click(object sender, EventArgs e) //Excepcion de sistema (en el form)
+        private void btnVisualizadorUsuariosLogueo_Click(object sender, EventArgs e)
         {
             FrmVisualizadorUsuarios frmVisualizadorUsuarios = new FrmVisualizadorUsuarios();
             frmVisualizadorUsuarios.ShowDialog();
         }
-        private void btnMostrarCaracteristicasEspecificas_Click(object sender, EventArgs e) //Excepcion propia y de sistema
+        private void btnMostrarCaracteristicasEspecificas_Click(object sender, EventArgs e)
         {
             if (this.lstBoxObjetos.SelectedIndex == -1)
             {
@@ -98,7 +98,8 @@ namespace CRUD_EmpresaElectronica
             }
             else
             {
-                MessageBox.Show($"{((ArtefactoElectronico)lstBoxObjetos.SelectedItem).MostrarCaracteristicasEspecificas()}",
+                MessageBox.Show($"{((ArtefactoElectronico)lstBoxObjetos.SelectedItem).MostrarCaracteristicasEspecificas()}" +
+                    $"{empresaElectronica.RetornarDataDeId(((ArtefactoElectronico)lstBoxObjetos.SelectedItem))}",
                     "Caracteristicas especificas", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
