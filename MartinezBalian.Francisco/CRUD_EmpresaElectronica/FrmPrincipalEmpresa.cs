@@ -31,9 +31,9 @@ namespace CRUD_EmpresaElectronica
             InitializeComponent();
             this.empresaElectronica.ProductosElectronicos = this.ado.ObtenerTodasLasListas(this.empresaElectronica.ProductosElectronicos,
                 true, false, false);
-            this.empresaElectronica.ProductosElectronicos = this.ado.ObtenerTodasLasListas(this.empresaElectronica.ProductosElectronicos, 
+            this.empresaElectronica.ProductosElectronicos = this.ado.ObtenerTodasLasListas(this.empresaElectronica.ProductosElectronicos,
                 false, true, false);
-            this.empresaElectronica.ProductosElectronicos = this.ado.ObtenerTodasLasListas(this.empresaElectronica.ProductosElectronicos, 
+            this.empresaElectronica.ProductosElectronicos = this.ado.ObtenerTodasLasListas(this.empresaElectronica.ProductosElectronicos,
                 false, false, true);
             this.Text = this.empresaElectronica.Nombre;
         }
@@ -225,7 +225,7 @@ namespace CRUD_EmpresaElectronica
 
                         if (ado.ModificarDato(frmCeluar.celular))
                         {
-                            MessageBox.Show("Se modifico exitosamente de la lista y de la base de datos!", 
+                            MessageBox.Show("Se modifico exitosamente de la lista y de la base de datos!",
                                 "Modificacion exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
 
@@ -281,7 +281,7 @@ namespace CRUD_EmpresaElectronica
             else
             {
                 DialogResult resultado = MessageBox.Show("¿Estás seguro de que quieres eliminar este producto? Se va a eliminar de " +
-                    "la lista y de la base de datos definitivamente!", "Confirmar eliminacion", 
+                    "la lista y de la base de datos definitivamente!", "Confirmar eliminacion",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
                 if (resultado == DialogResult.Yes)
@@ -291,6 +291,11 @@ namespace CRUD_EmpresaElectronica
                     this.ActualizarVisor();
                 }
             }
+        }
+        private void btnMostrarInfoUsuarioLogueado_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(this.usuarioElectronico.RetornarInfoImportante(), "Informacion de usuario", 
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         private bool ValidarAgregadoProducto()
         {

@@ -42,9 +42,8 @@
             rbPrecioDescendentemente = new RadioButton();
             cmBoxProductos = new ComboBox();
             lblAgregarProducto = new Label();
-            openFileDialog1 = new OpenFileDialog();
-            saveFileDialog1 = new SaveFileDialog();
             lstBoxObjetos = new ListBox();
+            btnMostrarInfoUsuarioLogueado = new Button();
             SuspendLayout();
             // 
             // btnVisualizadorUsuariosLogueo
@@ -73,7 +72,7 @@
             // btnAgregar
             // 
             btnAgregar.BackColor = SystemColors.GradientActiveCaption;
-            btnAgregar.Location = new Point(846, 206);
+            btnAgregar.Location = new Point(846, 222);
             btnAgregar.Name = "btnAgregar";
             btnAgregar.Size = new Size(150, 83);
             btnAgregar.TabIndex = 2;
@@ -84,7 +83,7 @@
             // btnModificar
             // 
             btnModificar.BackColor = SystemColors.GradientActiveCaption;
-            btnModificar.Location = new Point(847, 307);
+            btnModificar.Location = new Point(847, 325);
             btnModificar.Name = "btnModificar";
             btnModificar.Size = new Size(150, 83);
             btnModificar.TabIndex = 3;
@@ -95,7 +94,7 @@
             // btnEliminar
             // 
             btnEliminar.BackColor = SystemColors.GradientActiveCaption;
-            btnEliminar.Location = new Point(846, 407);
+            btnEliminar.Location = new Point(847, 428);
             btnEliminar.Name = "btnEliminar";
             btnEliminar.Size = new Size(150, 85);
             btnEliminar.TabIndex = 4;
@@ -194,20 +193,27 @@
             lblAgregarProducto.TabIndex = 13;
             lblAgregarProducto.Text = "Seleccionar producto";
             // 
-            // openFileDialog1
-            // 
-            openFileDialog1.FileName = "openFileDialog1";
-            // 
             // lstBoxObjetos
             // 
             lstBoxObjetos.BackColor = SystemColors.GradientActiveCaption;
             lstBoxObjetos.Font = new Font("Times New Roman", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
             lstBoxObjetos.FormattingEnabled = true;
             lstBoxObjetos.ItemHeight = 19;
-            lstBoxObjetos.Location = new Point(40, 28);
+            lstBoxObjetos.Location = new Point(39, 53);
             lstBoxObjetos.Name = "lstBoxObjetos";
             lstBoxObjetos.Size = new Size(762, 460);
             lstBoxObjetos.TabIndex = 14;
+            // 
+            // btnMostrarInfoUsuarioLogueado
+            // 
+            btnMostrarInfoUsuarioLogueado.BackColor = SystemColors.GradientActiveCaption;
+            btnMostrarInfoUsuarioLogueado.Location = new Point(707, 540);
+            btnMostrarInfoUsuarioLogueado.Name = "btnMostrarInfoUsuarioLogueado";
+            btnMostrarInfoUsuarioLogueado.Size = new Size(94, 77);
+            btnMostrarInfoUsuarioLogueado.TabIndex = 15;
+            btnMostrarInfoUsuarioLogueado.Text = "Info usuario";
+            btnMostrarInfoUsuarioLogueado.UseVisualStyleBackColor = false;
+            btnMostrarInfoUsuarioLogueado.Click += btnMostrarInfoUsuarioLogueado_Click;
             // 
             // FrmPrincipalEmpresa
             // 
@@ -216,6 +222,7 @@
             BackgroundImage = Properties.Resources.fondo_empresa;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1037, 645);
+            Controls.Add(btnMostrarInfoUsuarioLogueado);
             Controls.Add(lstBoxObjetos);
             Controls.Add(lblAgregarProducto);
             Controls.Add(cmBoxProductos);
@@ -255,8 +262,7 @@
         private RadioButton rbPrecioDescendentemente;
         private ComboBox cmBoxProductos;
         private Label lblAgregarProducto;
-        private OpenFileDialog openFileDialog1;
-        private SaveFileDialog saveFileDialog1;
         private ListBox lstBoxObjetos;
+        private Button btnMostrarInfoUsuarioLogueado;
     }
 }

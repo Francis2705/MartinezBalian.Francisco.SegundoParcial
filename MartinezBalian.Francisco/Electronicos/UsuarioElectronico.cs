@@ -9,7 +9,7 @@ namespace Electronicos
     /// <summary>
     /// Clase que representa un usuario
     /// </summary>
-    public class UsuarioElectronico
+    public class UsuarioElectronico : IReporte
     {
         public string apellido { get; set; }
         public string nombre { get; set; }
@@ -25,6 +25,19 @@ namespace Electronicos
         public override string ToString()
         {
             return $"Nombre: {nombre} - Apellido: {apellido}\n";
+        }
+        public string RetornarInfoImportante()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine($"Nombre: {this.nombre}");
+            sb.AppendLine($"Apellido: {this.apellido}");
+            sb.AppendLine($"Legajo: {this.legajo}");
+            sb.AppendLine($"Correo: {this.correo}");
+            sb.AppendLine($"Clave: {this.clave}");
+            sb.AppendLine($"Perfil: {this.perfil}");
+
+            return sb.ToString();
         }
     }
 }
