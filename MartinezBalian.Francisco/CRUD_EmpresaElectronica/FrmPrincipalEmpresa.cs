@@ -147,7 +147,8 @@ namespace CRUD_EmpresaElectronica
                             if (ado.AgregarDato(frmCeluar.celular))
                             {
                                 frmCeluar.celular.ID = ado.TraerID(true, false, false, frmCeluar.celular);
-                                MessageBox.Show("Se agrego exitosamente a la lista y a la base de datos!");
+                                MessageBox.Show("Se agrego exitosamente a la lista y a la base de datos!",
+                                    "Agregado exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                         }
                     }
@@ -167,7 +168,8 @@ namespace CRUD_EmpresaElectronica
                             if (ado.AgregarDato(frmComputadora.computadora))
                             {
                                 frmComputadora.computadora.ID = ado.TraerID(false, true, false, frmComputadora.computadora);
-                                MessageBox.Show("Se agrego exitosamente a la base de datos!");
+                                MessageBox.Show("Se agrego exitosamente a la lista y a la base de datos!",
+                                    "Agregado exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                         }
                     }
@@ -187,7 +189,8 @@ namespace CRUD_EmpresaElectronica
                             if (ado.AgregarDato(frmConsola.consola))
                             {
                                 frmConsola.consola.ID = ado.TraerID(false, false, true, frmConsola.consola);
-                                MessageBox.Show("Se agrego exitosamente a la base de datos!");
+                                MessageBox.Show("Se agrego exitosamente a la lista y a la base de datos!",
+                                    "Agregado exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                         }
                     }
@@ -222,7 +225,8 @@ namespace CRUD_EmpresaElectronica
 
                         if (ado.ModificarDato(frmCeluar.celular))
                         {
-                            MessageBox.Show("Se modifico exitosamente de la lista y de la base de datos!");
+                            MessageBox.Show("Se modifico exitosamente de la lista y de la base de datos!", 
+                                "Modificacion exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
 
                     }
@@ -241,7 +245,8 @@ namespace CRUD_EmpresaElectronica
 
                         if (ado.ModificarDato(frmComputadora.computadora))
                         {
-                            MessageBox.Show("Se modifico exitosamente de la lista y de la base de datos!");
+                            MessageBox.Show("Se modifico exitosamente de la lista y de la base de datos!",
+                                "Modificacion exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
                 }
@@ -259,7 +264,8 @@ namespace CRUD_EmpresaElectronica
 
                         if (ado.ModificarDato(frmConsola.consola))
                         {
-                            MessageBox.Show("Se modifico exitosamente de la lista y de la base de datos!");
+                            MessageBox.Show("Se modifico exitosamente de la lista y de la base de datos!",
+                                "Modificacion exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
                 }
@@ -276,7 +282,7 @@ namespace CRUD_EmpresaElectronica
             {
                 DialogResult resultado = MessageBox.Show("¿Estás seguro de que quieres eliminar este producto? Se va a eliminar de " +
                     "la lista y de la base de datos definitivamente!", "Confirmar eliminacion", 
-                    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
                 if (resultado == DialogResult.Yes)
                 {
