@@ -79,6 +79,8 @@
             btnAgregar.Text = "Agregar producto";
             btnAgregar.UseVisualStyleBackColor = false;
             btnAgregar.Click += btnAgregar_Click;
+            btnAgregar.MouseEnter += btnAgregar_MouseEnter;
+            btnAgregar.MouseLeave += btnAgregar_MouseLeave;
             // 
             // btnModificar
             // 
@@ -90,6 +92,8 @@
             btnModificar.Text = "Modificar producto";
             btnModificar.UseVisualStyleBackColor = false;
             btnModificar.Click += btnModificar_Click;
+            btnModificar.MouseEnter += btnModificar_MouseEnter;
+            btnModificar.MouseLeave += btnModificar_MouseLeave;
             // 
             // btnEliminar
             // 
@@ -101,6 +105,8 @@
             btnEliminar.Text = "Eliminar producto";
             btnEliminar.UseVisualStyleBackColor = false;
             btnEliminar.Click += btnEliminar_Click;
+            btnEliminar.MouseEnter += btnEliminar_MouseEnter;
+            btnEliminar.MouseLeave += btnEliminar_MouseLeave;
             // 
             // btnMostrarCaracteristicasEspecificas
             // 

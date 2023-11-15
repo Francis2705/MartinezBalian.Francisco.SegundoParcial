@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Electronicos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,5 +23,16 @@ namespace CRUD_EmpresaElectronica
         }
 
         //Relacion con delegados sobre cambio de color de botones
+        public static Color CambiarDeColorFondoObjetos(bool permiso)
+        {
+            if (permiso)
+            {
+                return Color.Aquamarine;
+            }
+            else
+            {
+                return Color.Red;
+            }
+        }
     }
 }

@@ -18,7 +18,7 @@ namespace CRUD_EmpresaElectronica
 {
     //Delegados
     public delegate void Action(string nombre); //Delegado Action para permisos denegados y objeto repetido
-
+    public delegate Color CambioColorBotones(bool permiso); //Delegado propio para cambiar colores
 
     /// <summary>
     /// Representa el formulario de la empresa
@@ -34,6 +34,7 @@ namespace CRUD_EmpresaElectronica
         //Eventos
         public event Action PermisoDenegado;
         public event Action ObjetoRepetido;
+        public event CambioColorBotones CambioDeColor;
 
         public FrmPrincipalEmpresa()
         {
@@ -42,6 +43,7 @@ namespace CRUD_EmpresaElectronica
             //Inicializo eventos
             this.PermisoDenegado += InvalidacionesAcciones.UsuarioNoValido;
             this.ObjetoRepetido += InvalidacionesAcciones.ObjetoNoValido;
+            this.CambioDeColor += InvalidacionesAcciones.CambiarDeColorFondoObjetos;
 
             //Cargo listas
             this.empresaElectronica.ProductosElectronicos = this.ado.ObtenerTodasLasListas(this.empresaElectronica.ProductosElectronicos,
@@ -331,7 +333,7 @@ namespace CRUD_EmpresaElectronica
         }
         private void btnMostrarInfoUsuarioLogueado_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(this.usuarioElectronico.RetornarInfoImportante(), "Informacion de usuario", 
+            MessageBox.Show(this.usuarioElectronico.RetornarInfoImportante(), "Informacion de usuario",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         private bool ValidarAgregadoProducto(ArtefactoElectronico producto)
@@ -346,6 +348,53 @@ namespace CRUD_EmpresaElectronica
                 this.ActualizarVisor();
                 return true;
             }
+        }
+
+        //Interacciones con el mouse encima de los botones
+        private void btnAgregar_MouseEnter(object sender, EventArgs e)
+        {
+            bool valido = false;
+
+            if (usuarioElectronico.perfil != "vendedor")
+            {
+                valido = true;
+            }
+
+            this.btnAgregar.BackColor = this.CambioDeColor.Invoke(valido);
+        }
+        private void btnAgregar_MouseLeave(object sender, EventArgs e)
+        {
+            this.btnAgregar.BackColor = SystemColors.GradientActiveCaption;
+        }
+        private void btnModificar_MouseEnter(object sender, EventArgs e)
+        {
+            bool valido = false;
+
+            if (usuarioElectronico.perfil == "administrador" || usuarioElectronico.perfil == "supervisor")
+            {
+                valido = true;
+            }
+
+            this.btnModificar.BackColor = this.CambioDeColor.Invoke(valido);
+        }
+        private void btnModificar_MouseLeave(object sender, EventArgs e)
+        {
+            this.btnModificar.BackColor = SystemColors.GradientActiveCaption;
+        }
+        private void btnEliminar_MouseEnter(object sender, EventArgs e)
+        {
+            bool valido = false;
+
+            if (this.usuarioElectronico.perfil == "administrador")
+            {
+                valido = true;
+            }
+
+            this.btnEliminar.BackColor = this.CambioDeColor.Invoke(valido);
+        }
+        private void btnEliminar_MouseLeave(object sender, EventArgs e)
+        {
+            this.btnEliminar.BackColor = SystemColors.GradientActiveCaption;
         }
     }
 }

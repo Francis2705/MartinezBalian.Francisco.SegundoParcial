@@ -112,14 +112,12 @@ namespace CRUD_EmpresaElectronica
         /// </summary>
         /// <param name="sender">Representa un objeto de cualquier tipo</param>
         /// <param name="e">Representa un objeto de tipo EventArgs</param>
-        private void btnRellenar_Click(object sender, EventArgs e) //MODIFICAR
+        private void btnRellenar_Click(object sender, EventArgs e)
         {
-            /*Random random = new Random();
+            Random random = new Random();
             int i = random.Next(0, listaUsuarios.Count);
             txtBoxCorreo.Text = listaUsuarios[i].correo;
-            txtBoxClave.Text = listaUsuarios[i].clave;*/
-            txtBoxCorreo.Text = "admin@admin.com";
-            txtBoxClave.Text = "12345678";
+            txtBoxClave.Text = listaUsuarios[i].clave;
         }
         /// <summary>
         /// Metodo que retorna el usuario logueado
