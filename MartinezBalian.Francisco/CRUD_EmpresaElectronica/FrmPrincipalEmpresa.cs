@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -129,168 +130,192 @@ namespace CRUD_EmpresaElectronica
         }
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            if (cmBoxProductos.SelectedItem != null)
+            if (usuarioElectronico.perfil != "vendedor")
             {
-                string opcionSeleccionada = cmBoxProductos.SelectedItem.ToString();
-
-                if (opcionSeleccionada == "Celular")
+                if (cmBoxProductos.SelectedItem != null)
                 {
-                    FrmCelular frmCeluar = new FrmCelular();
-                    frmCeluar.ShowDialog();
+                    string opcionSeleccionada = cmBoxProductos.SelectedItem.ToString();
 
-                    if (frmCeluar.DialogResult == DialogResult.OK)
+                    if (opcionSeleccionada == "Celular")
                     {
-                        this.cantidad = empresaElectronica.ProductosElectronicos.Count;
-                        this.empresaElectronica += frmCeluar.celular;
+                        FrmCelular frmCeluar = new FrmCelular();
+                        frmCeluar.ShowDialog();
 
-                        if (this.ValidarAgregadoProducto())
+                        if (frmCeluar.DialogResult == DialogResult.OK)
                         {
-                            if (ado.AgregarDato(frmCeluar.celular))
+                            this.cantidad = empresaElectronica.ProductosElectronicos.Count;
+                            this.empresaElectronica += frmCeluar.celular;
+
+                            if (this.ValidarAgregadoProducto())
                             {
-                                frmCeluar.celular.ID = ado.TraerID(true, false, false, frmCeluar.celular);
-                                MessageBox.Show("Se agrego exitosamente a la lista y a la base de datos!",
-                                    "Agregado exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                if (ado.AgregarDato(frmCeluar.celular))
+                                {
+                                    frmCeluar.celular.ID = ado.TraerID(true, false, false, frmCeluar.celular);
+                                    MessageBox.Show("Se agrego exitosamente a la lista y a la base de datos!",
+                                        "Agregado exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
+                            }
+                        }
+                    }
+                    else if (opcionSeleccionada == "Computadora")
+                    {
+                        FrmComputadora frmComputadora = new FrmComputadora();
+                        frmComputadora.ShowDialog();
+
+                        if (frmComputadora.DialogResult == DialogResult.OK)
+                        {
+                            this.cantidad = empresaElectronica.ProductosElectronicos.Count;
+                            this.empresaElectronica += frmComputadora.computadora;
+
+                            if (this.ValidarAgregadoProducto())
+                            {
+                                if (ado.AgregarDato(frmComputadora.computadora))
+                                {
+                                    frmComputadora.computadora.ID = ado.TraerID(false, true, false, frmComputadora.computadora);
+                                    MessageBox.Show("Se agrego exitosamente a la lista y a la base de datos!",
+                                        "Agregado exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
+                            }
+                        }
+                    }
+                    else if (opcionSeleccionada == "Consola")
+                    {
+                        FrmConsola frmConsola = new FrmConsola();
+                        frmConsola.ShowDialog();
+
+                        if (frmConsola.DialogResult == DialogResult.OK)
+                        {
+                            this.cantidad = empresaElectronica.ProductosElectronicos.Count;
+                            this.empresaElectronica += frmConsola.consola;
+
+                            if (this.ValidarAgregadoProducto())
+                            {
+                                if (ado.AgregarDato(frmConsola.consola))
+                                {
+                                    frmConsola.consola.ID = ado.TraerID(false, false, true, frmConsola.consola);
+                                    MessageBox.Show("Se agrego exitosamente a la lista y a la base de datos!",
+                                        "Agregado exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
                             }
                         }
                     }
                 }
-                else if (opcionSeleccionada == "Computadora")
+                else
                 {
-                    FrmComputadora frmComputadora = new FrmComputadora();
-                    frmComputadora.ShowDialog();
-
-                    if (frmComputadora.DialogResult == DialogResult.OK)
-                    {
-                        this.cantidad = empresaElectronica.ProductosElectronicos.Count;
-                        this.empresaElectronica += frmComputadora.computadora;
-
-                        if (this.ValidarAgregadoProducto())
-                        {
-                            if (ado.AgregarDato(frmComputadora.computadora))
-                            {
-                                frmComputadora.computadora.ID = ado.TraerID(false, true, false, frmComputadora.computadora);
-                                MessageBox.Show("Se agrego exitosamente a la lista y a la base de datos!",
-                                    "Agregado exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            }
-                        }
-                    }
-                }
-                else if (opcionSeleccionada == "Consola")
-                {
-                    FrmConsola frmConsola = new FrmConsola();
-                    frmConsola.ShowDialog();
-
-                    if (frmConsola.DialogResult == DialogResult.OK)
-                    {
-                        this.cantidad = empresaElectronica.ProductosElectronicos.Count;
-                        this.empresaElectronica += frmConsola.consola;
-
-                        if (this.ValidarAgregadoProducto())
-                        {
-                            if (ado.AgregarDato(frmConsola.consola))
-                            {
-                                frmConsola.consola.ID = ado.TraerID(false, false, true, frmConsola.consola);
-                                MessageBox.Show("Se agrego exitosamente a la lista y a la base de datos!",
-                                    "Agregado exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            }
-                        }
-                    }
+                    MessageBox.Show("Debe seleccionar un producto para agregar", "Agregar",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
-                MessageBox.Show("Debe seleccionar un producto para agregar", "Agregar",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No tienes permisos para realizar esta accion", "Permiso denegado",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            if (this.lstBoxObjetos.SelectedIndex == -1)
+            if (usuarioElectronico.perfil == "administrador" || usuarioElectronico.perfil == "supervisor")
             {
-                MessageBox.Show("No se selecciono ningun producto para modificiar", "Modificar",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (this.lstBoxObjetos.SelectedIndex == -1)
+                {
+                    MessageBox.Show("No se selecciono ningun producto para modificiar", "Modificar",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    if (this.lstBoxObjetos.SelectedItem is Celular)
+                    {
+                        Celular celu = (Celular)this.empresaElectronica.ProductosElectronicos[lstBoxObjetos.SelectedIndex];
+
+                        FrmCelular frmCeluar = new FrmCelular(celu);
+                        frmCeluar.ShowDialog();
+
+                        if (frmCeluar.DialogResult == DialogResult.OK)
+                        {
+                            this.empresaElectronica.ProductosElectronicos[lstBoxObjetos.SelectedIndex] = frmCeluar.celular;
+                            this.ActualizarVisor();
+
+                            if (ado.ModificarDato(frmCeluar.celular))
+                            {
+                                MessageBox.Show("Se modifico exitosamente de la lista y de la base de datos!",
+                                    "Modificacion exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+
+                        }
+                    }
+                    else if (this.lstBoxObjetos.SelectedItem is Computadora)
+                    {
+                        Computadora computadora = (Computadora)this.empresaElectronica.ProductosElectronicos[lstBoxObjetos.SelectedIndex];
+
+                        FrmComputadora frmComputadora = new FrmComputadora(computadora);
+                        frmComputadora.ShowDialog();
+
+                        if (frmComputadora.DialogResult == DialogResult.OK)
+                        {
+                            this.empresaElectronica.ProductosElectronicos[lstBoxObjetos.SelectedIndex] = frmComputadora.computadora;
+                            this.ActualizarVisor();
+
+                            if (ado.ModificarDato(frmComputadora.computadora))
+                            {
+                                MessageBox.Show("Se modifico exitosamente de la lista y de la base de datos!",
+                                    "Modificacion exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                        }
+                    }
+                    else if (this.lstBoxObjetos.SelectedItem is Consola)
+                    {
+                        Consola consola = (Consola)this.empresaElectronica.ProductosElectronicos[lstBoxObjetos.SelectedIndex];
+
+                        FrmConsola frmConsola = new FrmConsola(consola);
+                        frmConsola.ShowDialog();
+
+                        if (frmConsola.DialogResult == DialogResult.OK)
+                        {
+                            this.empresaElectronica.ProductosElectronicos[lstBoxObjetos.SelectedIndex] = frmConsola.consola;
+                            this.ActualizarVisor();
+
+                            if (ado.ModificarDato(frmConsola.consola))
+                            {
+                                MessageBox.Show("Se modifico exitosamente de la lista y de la base de datos!",
+                                    "Modificacion exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                        }
+                    }
+                }
             }
             else
             {
-                if (this.lstBoxObjetos.SelectedItem is Celular)
-                {
-                    Celular celu = (Celular)this.empresaElectronica.ProductosElectronicos[lstBoxObjetos.SelectedIndex];
-
-                    FrmCelular frmCeluar = new FrmCelular(celu);
-                    frmCeluar.ShowDialog();
-
-                    if (frmCeluar.DialogResult == DialogResult.OK)
-                    {
-                        this.empresaElectronica.ProductosElectronicos[lstBoxObjetos.SelectedIndex] = frmCeluar.celular;
-                        this.ActualizarVisor();
-
-                        if (ado.ModificarDato(frmCeluar.celular))
-                        {
-                            MessageBox.Show("Se modifico exitosamente de la lista y de la base de datos!",
-                                "Modificacion exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-
-                    }
-                }
-                else if (this.lstBoxObjetos.SelectedItem is Computadora)
-                {
-                    Computadora computadora = (Computadora)this.empresaElectronica.ProductosElectronicos[lstBoxObjetos.SelectedIndex];
-
-                    FrmComputadora frmComputadora = new FrmComputadora(computadora);
-                    frmComputadora.ShowDialog();
-
-                    if (frmComputadora.DialogResult == DialogResult.OK)
-                    {
-                        this.empresaElectronica.ProductosElectronicos[lstBoxObjetos.SelectedIndex] = frmComputadora.computadora;
-                        this.ActualizarVisor();
-
-                        if (ado.ModificarDato(frmComputadora.computadora))
-                        {
-                            MessageBox.Show("Se modifico exitosamente de la lista y de la base de datos!",
-                                "Modificacion exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                    }
-                }
-                else if (this.lstBoxObjetos.SelectedItem is Consola)
-                {
-                    Consola consola = (Consola)this.empresaElectronica.ProductosElectronicos[lstBoxObjetos.SelectedIndex];
-
-                    FrmConsola frmConsola = new FrmConsola(consola);
-                    frmConsola.ShowDialog();
-
-                    if (frmConsola.DialogResult == DialogResult.OK)
-                    {
-                        this.empresaElectronica.ProductosElectronicos[lstBoxObjetos.SelectedIndex] = frmConsola.consola;
-                        this.ActualizarVisor();
-
-                        if (ado.ModificarDato(frmConsola.consola))
-                        {
-                            MessageBox.Show("Se modifico exitosamente de la lista y de la base de datos!",
-                                "Modificacion exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                    }
-                }
+                MessageBox.Show("No tienes permisos para realizar esta accion", "Permiso denegado",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            if (this.lstBoxObjetos.SelectedIndex == -1)
+            if (this.usuarioElectronico.perfil == "administrador")
             {
-                MessageBox.Show("Debe seleccionar un producto para eliminar", "Eliminar",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (this.lstBoxObjetos.SelectedIndex == -1)
+                {
+                    MessageBox.Show("Debe seleccionar un producto para eliminar", "Eliminar",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    DialogResult resultado = MessageBox.Show("¿Estás seguro de que quieres eliminar este producto? Se va a eliminar de " +
+                        "la lista y de la base de datos definitivamente!", "Confirmar eliminacion",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                    if (resultado == DialogResult.Yes)
+                    {
+                        this.ado.EliminarDato((ArtefactoElectronico)lstBoxObjetos.SelectedItem);
+                        this.empresaElectronica -= (ArtefactoElectronico)lstBoxObjetos.SelectedItem;
+                        this.ActualizarVisor();
+                    }
+                }
             }
             else
             {
-                DialogResult resultado = MessageBox.Show("¿Estás seguro de que quieres eliminar este producto? Se va a eliminar de " +
-                    "la lista y de la base de datos definitivamente!", "Confirmar eliminacion",
-                    MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-                if (resultado == DialogResult.Yes)
-                {
-                    this.ado.EliminarDato((ArtefactoElectronico)lstBoxObjetos.SelectedItem);
-                    this.empresaElectronica -= (ArtefactoElectronico)lstBoxObjetos.SelectedItem;
-                    this.ActualizarVisor();
-                }
+                MessageBox.Show("No tienes permisos para realizar esta accion", "Permiso denegado",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void btnMostrarInfoUsuarioLogueado_Click(object sender, EventArgs e)
