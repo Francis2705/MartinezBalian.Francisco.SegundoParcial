@@ -16,6 +16,10 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace CRUD_EmpresaElectronica
 {
+    //Delegados
+    public delegate void Action(string nombre); //Delegado Action para permisos denegados y objeto repetido
+
+
     /// <summary>
     /// Representa el formulario de la empresa
     /// </summary>
@@ -27,9 +31,19 @@ namespace CRUD_EmpresaElectronica
         private UsuarioElectronico usuarioElectronico = FrmLogin.GetUsuarioElectronico();
         private int cantidad;
 
+        //Eventos
+        public event Action PermisoDenegado;
+        public event Action ObjetoRepetido;
+
         public FrmPrincipalEmpresa()
         {
             InitializeComponent();
+
+            //Inicializo eventos
+            this.PermisoDenegado += InvalidacionesAcciones.UsuarioNoValido;
+            this.ObjetoRepetido += InvalidacionesAcciones.ObjetoNoValido;
+
+            //Cargo listas
             this.empresaElectronica.ProductosElectronicos = this.ado.ObtenerTodasLasListas(this.empresaElectronica.ProductosElectronicos,
                 true, false, false);
             this.empresaElectronica.ProductosElectronicos = this.ado.ObtenerTodasLasListas(this.empresaElectronica.ProductosElectronicos,
@@ -146,7 +160,7 @@ namespace CRUD_EmpresaElectronica
                             this.cantidad = empresaElectronica.ProductosElectronicos.Count;
                             this.empresaElectronica += frmCeluar.celular;
 
-                            if (this.ValidarAgregadoProducto())
+                            if (this.ValidarAgregadoProducto(frmCeluar.celular))
                             {
                                 if (ado.AgregarDato(frmCeluar.celular))
                                 {
@@ -167,7 +181,7 @@ namespace CRUD_EmpresaElectronica
                             this.cantidad = empresaElectronica.ProductosElectronicos.Count;
                             this.empresaElectronica += frmComputadora.computadora;
 
-                            if (this.ValidarAgregadoProducto())
+                            if (this.ValidarAgregadoProducto(frmComputadora.computadora))
                             {
                                 if (ado.AgregarDato(frmComputadora.computadora))
                                 {
@@ -188,7 +202,7 @@ namespace CRUD_EmpresaElectronica
                             this.cantidad = empresaElectronica.ProductosElectronicos.Count;
                             this.empresaElectronica += frmConsola.consola;
 
-                            if (this.ValidarAgregadoProducto())
+                            if (this.ValidarAgregadoProducto(frmConsola.consola))
                             {
                                 if (ado.AgregarDato(frmConsola.consola))
                                 {
@@ -208,8 +222,7 @@ namespace CRUD_EmpresaElectronica
             }
             else
             {
-                MessageBox.Show("No tienes permisos para realizar esta accion", "Permiso denegado",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.PermisoDenegado.Invoke(usuarioElectronico.nombre);
             }
         }
         private void btnModificar_Click(object sender, EventArgs e)
@@ -285,8 +298,7 @@ namespace CRUD_EmpresaElectronica
             }
             else
             {
-                MessageBox.Show("No tienes permisos para realizar esta accion", "Permiso denegado",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.PermisoDenegado.Invoke(usuarioElectronico.nombre);
             }
         }
         private void btnEliminar_Click(object sender, EventArgs e)
@@ -314,8 +326,7 @@ namespace CRUD_EmpresaElectronica
             }
             else
             {
-                MessageBox.Show("No tienes permisos para realizar esta accion", "Permiso denegado",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.PermisoDenegado.Invoke(usuarioElectronico.nombre);
             }
         }
         private void btnMostrarInfoUsuarioLogueado_Click(object sender, EventArgs e)
@@ -323,11 +334,11 @@ namespace CRUD_EmpresaElectronica
             MessageBox.Show(this.usuarioElectronico.RetornarInfoImportante(), "Informacion de usuario", 
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-        private bool ValidarAgregadoProducto()
+        private bool ValidarAgregadoProducto(ArtefactoElectronico producto)
         {
             if (this.cantidad == this.empresaElectronica.ProductosElectronicos.Count)
             {
-                MessageBox.Show("Error, producto existente, no se pudo agregar ni a la lista ni a la base de datos");
+                this.ObjetoRepetido.Invoke(producto.Nombre);
                 return false;
             }
             else
