@@ -44,6 +44,7 @@
             lblAgregarProducto = new Label();
             lstBoxObjetos = new ListBox();
             btnMostrarInfoUsuarioLogueado = new Button();
+            lblCronometro = new Label();
             SuspendLayout();
             // 
             // btnVisualizadorUsuariosLogueo
@@ -221,6 +222,17 @@
             btnMostrarInfoUsuarioLogueado.UseVisualStyleBackColor = false;
             btnMostrarInfoUsuarioLogueado.Click += btnMostrarInfoUsuarioLogueado_Click;
             // 
+            // lblCronometro
+            // 
+            lblCronometro.AutoSize = true;
+            lblCronometro.BackColor = Color.Transparent;
+            lblCronometro.ForeColor = SystemColors.ButtonHighlight;
+            lblCronometro.Location = new Point(414, 9);
+            lblCronometro.Name = "lblCronometro";
+            lblCronometro.Size = new Size(50, 20);
+            lblCronometro.TabIndex = 16;
+            lblCronometro.Text = "label1";
+            // 
             // FrmPrincipalEmpresa
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -228,6 +240,7 @@
             BackgroundImage = Properties.Resources.fondo_empresa;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1037, 645);
+            Controls.Add(lblCronometro);
             Controls.Add(btnMostrarInfoUsuarioLogueado);
             Controls.Add(lstBoxObjetos);
             Controls.Add(lblAgregarProducto);
@@ -270,5 +283,6 @@
         private Label lblAgregarProducto;
         private ListBox lstBoxObjetos;
         private Button btnMostrarInfoUsuarioLogueado;
+        private Label lblCronometro;
     }
 }

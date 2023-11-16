@@ -9,6 +9,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Serialization;
@@ -36,6 +37,10 @@ namespace CRUD_EmpresaElectronica
         public event Action ObjetoRepetido;
         public event CambioColorBotones CambioDeColor;
 
+        //Tasks (Multihilo)
+        private CancellationTokenSource tokenCancelacion;
+        private Task tareaCronometro;
+
         public FrmPrincipalEmpresa()
         {
             InitializeComponent();
@@ -60,7 +65,7 @@ namespace CRUD_EmpresaElectronica
 
             foreach (ArtefactoElectronico artefacto in empresaElectronica.ProductosElectronicos)
             {
-                lstBoxObjetos.Items.Add(artefacto); //Agrego un objeto y se muestran sus datos
+                lstBoxObjetos.Items.Add(artefacto);
             }
         }
         private void FrmPrincipalEmpresa_FormClosing(object sender, FormClosingEventArgs e)
@@ -74,6 +79,7 @@ namespace CRUD_EmpresaElectronica
             }
             else
             {
+                this.tokenCancelacion.Cancel();
                 this.DialogResult = DialogResult.OK;
             }
         }
@@ -88,6 +94,11 @@ namespace CRUD_EmpresaElectronica
 
             this.ActualizarVisor();
 
+            this.tokenCancelacion = new CancellationTokenSource();
+            this.tareaCronometro = Task.Run(() => EmpezarTiempo(tokenCancelacion.Token), tokenCancelacion.Token);
+            //Inicializo y ejecuto la tarea con el metodo de EmpezarTiempo
+            //El primer token es el de cancelacion
+            //Y el segundo, que en realidad es el mismo, es el que indica cuando se va a cancelar la tarea y que termine
         }
         private void btnVisualizadorUsuariosLogueo_Click(object sender, EventArgs e)
         {
@@ -349,8 +360,33 @@ namespace CRUD_EmpresaElectronica
                 return true;
             }
         }
+        private void EmpezarTiempo(CancellationToken tokenCancelacion)
+        {
+            int segundos = 1;
 
-        //Interacciones con el mouse encima de los botones
+            int horas = segundos / 3600;
+            int minutos = (segundos % 3600) / 60;
+            int segundosContando = segundos % 60;
+
+            while (!tokenCancelacion.IsCancellationRequested)
+            {
+                this.Invoke(new Action<string>(ActualizarLabel), $"Tiempo total en la app: {horas:D2}:{minutos:D2}:{segundosContando:D2}");
+                //Este delegado Action acepta un string y encapsula al metodo de ActualizarLabel, que este tambien toma el string con la hora
+
+                Thread.Sleep(1000); //Duerme un segundo el hilo
+
+                //Se sigue actualizando el tiempo
+
+                segundos++;
+                horas = segundos / 3600;
+                minutos = (segundos % 3600) / 60;
+                segundosContando = segundos % 60;
+            }
+        }
+        private void ActualizarLabel(string textoHora)
+        {
+            this.lblCronometro.Text = textoHora;
+        }
         private void btnAgregar_MouseEnter(object sender, EventArgs e)
         {
             bool valido = false;
