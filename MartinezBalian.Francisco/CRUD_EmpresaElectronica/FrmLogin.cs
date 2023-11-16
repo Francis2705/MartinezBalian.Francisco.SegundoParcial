@@ -54,7 +54,7 @@ namespace CRUD_EmpresaElectronica
         /// </summary>
         /// <param name="sender">Representa un objeto de cualquier tipo</param>
         /// <param name="e">Representa un objeto de tipo EventArgs</param>
-        private void btnIngresar_Click(object sender, EventArgs e) 
+        private void btnIngresar_Click(object sender, EventArgs e)
         {
             usuarioLogueado = listaUsuarios.FirstOrDefault(usuario => usuario.correo == txtBoxCorreo.Text && usuario.clave == txtBoxClave.Text);
 
@@ -123,6 +123,11 @@ namespace CRUD_EmpresaElectronica
         public static UsuarioElectronico GetUsuarioElectronico()
         {
             return FrmLogin.usuarioLogueado;
+        }
+        private void linkLblRecuperarClave_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            FrmRecuperarClave frmRecuperarClave = new FrmRecuperarClave(this);
+            frmRecuperarClave.ShowDialog();
         }
     }
 }

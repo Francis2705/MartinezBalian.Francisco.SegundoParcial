@@ -36,6 +36,7 @@ namespace CRUD_EmpresaElectronica
             btnIngresar = new Button();
             btnRellenar = new Button();
             lblInicioSesion = new Label();
+            linkLblRecuperarClave = new LinkLabel();
             SuspendLayout();
             // 
             // txtBoxCorreo
@@ -73,7 +74,7 @@ namespace CRUD_EmpresaElectronica
             // 
             // btnRellenar
             // 
-            btnRellenar.Location = new Point(31, 390);
+            btnRellenar.Location = new Point(12, 390);
             btnRellenar.Name = "btnRellenar";
             btnRellenar.Size = new Size(97, 97);
             btnRellenar.TabIndex = 3;
@@ -93,6 +94,18 @@ namespace CRUD_EmpresaElectronica
             lblInicioSesion.TabIndex = 4;
             lblInicioSesion.Text = "Iniciar sesion";
             // 
+            // linkLblRecuperarClave
+            // 
+            linkLblRecuperarClave.AutoSize = true;
+            linkLblRecuperarClave.BackColor = Color.Transparent;
+            linkLblRecuperarClave.Location = new Point(172, 442);
+            linkLblRecuperarClave.Name = "linkLblRecuperarClave";
+            linkLblRecuperarClave.Size = new Size(229, 20);
+            linkLblRecuperarClave.TabIndex = 5;
+            linkLblRecuperarClave.TabStop = true;
+            linkLblRecuperarClave.Text = "Olvidaste tu clave? Haz click aqui";
+            linkLblRecuperarClave.LinkClicked += linkLblRecuperarClave_LinkClicked;
+            // 
             // FrmLogin
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -101,6 +114,7 @@ namespace CRUD_EmpresaElectronica
             BackgroundImage = Properties.Resources.fondo_login;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(572, 499);
+            Controls.Add(linkLblRecuperarClave);
             Controls.Add(lblInicioSesion);
             Controls.Add(btnRellenar);
             Controls.Add(btnIngresar);
@@ -122,5 +136,6 @@ namespace CRUD_EmpresaElectronica
         private Button btnIngresar;
         private Button btnRellenar;
         private Label lblInicioSesion;
+        private LinkLabel linkLblRecuperarClave;
     }
 }

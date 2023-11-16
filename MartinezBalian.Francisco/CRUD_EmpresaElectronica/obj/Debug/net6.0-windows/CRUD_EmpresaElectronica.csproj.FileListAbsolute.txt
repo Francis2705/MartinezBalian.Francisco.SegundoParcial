@@ -76,3 +76,4 @@ C:\Users\franc\Desktop\carpetas_de_github\MartinezBalian.Francisco.SegundoParcia
 C:\Users\franc\Desktop\carpetas_de_github\MartinezBalian.Francisco.SegundoParcial\MartinezBalian.Francisco\CRUD_EmpresaElectronica\obj\Debug\net6.0-windows\CRUD_EmpresaElectronica.pdb
 C:\Users\franc\Desktop\carpetas_de_github\MartinezBalian.Francisco.SegundoParcial\MartinezBalian.Francisco\CRUD_EmpresaElectronica\obj\Debug\net6.0-windows\CRUD_EmpresaElectronica.genruntimeconfig.cache
 C:\Users\franc\Desktop\carpetas_de_github\MartinezBalian.Francisco.SegundoParcial\MartinezBalian.Francisco\CRUD_EmpresaElectronica\obj\Debug\net6.0-windows\ref\CRUD_EmpresaElectronica.dll
+C:\Users\franc\Desktop\carpetas_de_github\MartinezBalian.Francisco.SegundoParcial\MartinezBalian.Francisco\CRUD_EmpresaElectronica\obj\Debug\net6.0-windows\CRUD_EmpresaElectronica.FrmRecuperarClave.resources
