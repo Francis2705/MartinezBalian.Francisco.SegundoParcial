@@ -11,6 +11,15 @@ namespace CRUD_EmpresaElectronica
     {
         private List<UsuarioElectronico> listaUsuarios = new List<UsuarioElectronico>();
         private static UsuarioElectronico usuarioLogueado = null;
+
+        public List<UsuarioElectronico> ListaDeUsuarios
+        {
+            get
+            {
+                return listaUsuarios;
+            }
+        }
+
         /// <summary>
         /// Inicializa los componentes del formulario
         /// </summary>

@@ -19,6 +19,9 @@
     <Compile Update="FrmPrincipalEmpresa.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="FrmRecuperarClave.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="FrmVisualizadorUsuarios.cs">
       <SubType>Form</SubType>
     </Compile>
