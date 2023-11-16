@@ -25,7 +25,6 @@ namespace CRUD_EmpresaElectronica
         /// <param name="e">Representa un objeto de tipo EventArgs</param>
         private void FrmLogin_Load(object sender, EventArgs e)
         {
-
             if (File.Exists(@"../../../../MOCK_DATA.json"))
             {
                 using (StreamReader lectorJson = new StreamReader(@"../../../../MOCK_DATA.json"))
@@ -46,20 +45,11 @@ namespace CRUD_EmpresaElectronica
         /// </summary>
         /// <param name="sender">Representa un objeto de cualquier tipo</param>
         /// <param name="e">Representa un objeto de tipo EventArgs</param>
-        private void btnIngresar_Click(object sender, EventArgs e) //Excepcion propia y de sistema 
+        private void btnIngresar_Click(object sender, EventArgs e) 
         {
-            bool usuarioValido = false;
+            usuarioLogueado = listaUsuarios.FirstOrDefault(usuario => usuario.correo == txtBoxCorreo.Text && usuario.clave == txtBoxClave.Text);
 
-            foreach (UsuarioElectronico usuario in listaUsuarios)
-            {
-                if (usuario.correo == txtBoxCorreo.Text && usuario.clave == txtBoxClave.Text)
-                {
-                    usuarioValido = true;
-                    FrmLogin.usuarioLogueado = usuario;
-                    break;
-                }
-            }
-            if (usuarioValido)
+            if (usuarioLogueado != null)
             {
                 Encoding miCodificacion = Encoding.UTF8;
                 StringBuilder sb = new StringBuilder();
@@ -103,8 +93,6 @@ namespace CRUD_EmpresaElectronica
                     MessageBox.Show($"Error inesperado: {ex.Message}\nLlamar urgente al tecnico!", "Error",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-
-                //MessageBox.Show("Nombre de usuario o clave incorrectos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         /// <summary>
