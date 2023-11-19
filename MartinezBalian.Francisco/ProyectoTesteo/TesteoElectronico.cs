@@ -5,6 +5,9 @@ namespace ProyectoTesteo
     [TestClass]
     public class TesteoElectronico
     {
+        /// <summary>
+        /// Metodo de testeo que verifica la igualdad de dos celulares (siendo iguales)
+        /// </summary>
         [TestMethod]
         public void VerificarIgualdadCelularElectronicoOk()
         {
@@ -18,7 +21,9 @@ namespace ProyectoTesteo
             //Assert
             Assert.IsTrue(rta);
         }
-
+        /// <summary>
+        /// Metodo de testeo que verifica la igualdad de dos celulares (no siendo iguales)
+        /// </summary>
         [TestMethod]
         public void VerificarIgualdadCelularElectronicoFalla()
         {
@@ -32,7 +37,9 @@ namespace ProyectoTesteo
             //Assert
             Assert.IsFalse(rta);
         }
-
+        /// <summary>
+        /// Metodo de testeo que verifica la desigualdad de dos celulares (no siendo iguales)
+        /// </summary>
         [TestMethod]
         public void VerificarDesigualdadCelularElectronicoOk()
         {
@@ -46,7 +53,9 @@ namespace ProyectoTesteo
             //Assert
             Assert.IsTrue(rta);
         }
-
+        /// <summary>
+        /// Metodo de testeo que verifica la desigualdad de dos celulares (siendo iguales)
+        /// </summary>
         [TestMethod]
         public void VerificarDesigualdadCelularElectronicoFalla()
         {
@@ -60,7 +69,9 @@ namespace ProyectoTesteo
             //Assert
             Assert.IsFalse(rta);
         }
-
+        /// <summary>
+        /// Metodo de testeo que verifica si el artefacto electronico ya se encuentra en la lista (correctamente)
+        /// </summary>
         [TestMethod]
         public void VerificarArtefactoEnListaOk()
         {
@@ -80,7 +91,9 @@ namespace ProyectoTesteo
 
             Assert.IsTrue(rta);
         }
-
+        /// <summary>
+        /// Metodo de testeo que verifica si el artefacto electronico ya se encuentra en la lista (incorrectamente)
+        /// </summary>
         [TestMethod]
         public void VerificarArtefactoEnListaFalla()
         {

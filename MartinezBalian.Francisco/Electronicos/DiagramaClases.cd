@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="Electronicos.Properties.Resources" Collapsed="true">
+    <Position X="15.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Electronicos.AccesoDatos" Collapsed="true">
+    <Position X="15.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAiEABIAIAiAAAAAAACAgAAAQAAAAAAAE=</HashCode>
+      <FileName>AccesoDatos.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Electronicos.ArtefactoElectronico">
+    <Position X="11" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACIAABAAAAAQgACGgAAAgAAQAAAAEIAAAAAAAAAgAiA=</HashCode>
+      <FileName>ArtefactoElectronico.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Electronicos.Celular" Collapsed="true">
+    <Position X="13.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAKAAAAAAABAAAAGgAQAAAAAIAAgAIIAIAACAAAAAiA=</HashCode>
+      <FileName>Celular.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Electronicos.Computadora">
+    <Position X="1.25" Y="0.5" Width="8.75" />
+    <TypeIdentifier>
+      <HashCode>IAIAAAAgAAAAIAAWgAQAEAAAAAAAAIAAAAAAACAJAiA=</HashCode>
+      <FileName>Computadora.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Electronicos.Consola" Collapsed="true">
+    <Position X="12.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAIAAAAAAAAAAAAGiAwAAAAIAAkAAIAAIAgAAAAAAiA=</HashCode>
+      <FileName>Consola.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Electronicos.EmpresaElectronica&lt;T&gt;" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="17.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACYAAAAAAAAAACEwAEAgAQACABAAIAAACAAAACAEiA=</HashCode>
+      <FileName>EmpresaElectronica.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Electronicos.OpcionNoSeleccionadaException" Collapsed="true">
+    <Position X="17.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>OpcionNoSeleccionadaException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Electronicos.UsuarioElectronico" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="15.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQBAACEAAAAAAAAAAQAAACAAAEQAAAAAAA=</HashCode>
+      <FileName>UsuarioElectronico.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Electronicos.UsuarioIncorrectoException" Collapsed="true">
+    <Position X="17.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UsuarioIncorrectoException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Electronicos.IReporte" Collapsed="true">
+    <Position X="15.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>IReporte.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Electronicos.IUnicoID&lt;T&gt;" Collapsed="true">
+    <Position X="17" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IUnicoID.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="ETipoOrigen" Collapsed="true">
+    <Position X="15.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAIAIAAAAABAAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Enumerado.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CRUD_EmpresaElectronica.Properties.Resources" Collapsed="true">
+    <Position X="9" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAgAQAAAAAAAAEgIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CRUD_EmpresaElectronica.FrmAgregar" Collapsed="true">
+    <Position X="4.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAASKIAAIAAACAAAECQCAAgAAAQAAAAAAAAAA=</HashCode>
+      <FileName>FrmAgregar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CRUD_EmpresaElectronica.FrmCelular" Collapsed="true">
+    <Position X="4.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CCQAAAAAACIAAAABgCCAAAACAAAAEBIAIAAAAAAAAiA=</HashCode>
+      <FileName>FrmCelular.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CRUD_EmpresaElectronica.FrmComputadora" Collapsed="true">
+    <Position X="6.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACQEEAAAACIAAgAQgMCAAAASAAAAEAAEAAAAAAAAAgA=</HashCode>
+      <FileName>FrmComputadora.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CRUD_EmpresaElectronica.FrmConsola" Collapsed="true">
+    <Position X="2" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>SCQAAAAQiCIAAAAAAAiAAACCAAAAEAAAJAAAAAAAAAA=</HashCode>
+      <FileName>FrmConsola.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CRUD_EmpresaElectronica.FrmLogin" Collapsed="true">
+    <Position X="9" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAQAACBAKQAAAAiAAAACEAAAQAAIEAAAAAAAIBI=</HashCode>
+      <FileName>FrmLogin.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CRUD_EmpresaElectronica.FrmPrincipalEmpresa" Collapsed="true">
+    <Position X="10.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CwEQIAAQAaCIABoUQICyBEgCGAhQABIAABAAIAICSAQ=</HashCode>
+      <FileName>FrmPrincipalEmpresa.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CRUD_EmpresaElectronica.FrmRecuperarClave" Collapsed="true">
+    <Position X="12.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAABgABACAAAAKAAAAAAAAACQAAACAABA=</HashCode>
+      <FileName>FrmRecuperarClave.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CRUD_EmpresaElectronica.FrmVisualizadorUsuarios" Collapsed="true">
+    <Position X="9" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAACAAAAAAAACAAAACAgAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>FrmVisualizadorUsuarios.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CRUD_EmpresaElectronica.InvalidacionesAcciones" Collapsed="true">
+    <Position X="10.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAIQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>InvalidacionesAcciones.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CRUD_EmpresaElectronica.Program" Collapsed="true">
+    <Position X="12.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Delegate Name="CRUD_EmpresaElectronica.Action" Collapsed="true">
+    <Position X="9" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FrmPrincipalEmpresa.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="CRUD_EmpresaElectronica.CambioColorBotones" Collapsed="true">
+    <Position X="10.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FrmPrincipalEmpresa.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
