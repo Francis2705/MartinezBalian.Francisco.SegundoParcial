@@ -308,6 +308,7 @@ namespace Electronicos
         }
         public void ConsultarGeneralmente(SqlCommand comandoAux, ArtefactoElectronico art)
         {
+            comandoAux.Parameters.AddWithValue("@id", art.ID);
             comandoAux.Parameters.AddWithValue("@precio", art.Precio);
             comandoAux.Parameters.AddWithValue("@nombre", art.Nombre);
             comandoAux.Parameters.AddWithValue("@marca", art.Marca);
