@@ -28,7 +28,7 @@ namespace Electronicos
         }
 
         public List<ArtefactoElectronico> ObtenerTodasLasListas(List<ArtefactoElectronico> lista,
-            bool celu, bool compu, bool conso) //SELECT 
+            bool celu, bool compu, bool conso) //SELECT
         {
             string campos = "";
 
@@ -59,11 +59,7 @@ namespace Electronicos
                     while (this.lector.Read())
                     {
                         Celular celular = new Celular();
-                        celular.ID = (int)this.lector["id"];
-                        celular.Precio = (double)this.lector["precio"];
-                        celular.Nombre = (string)this.lector["nombre"];
-                        celular.Marca = (string)this.lector["marca"];
-                        celular.TipoOrigen = AccesoDatos.ValidarEnum(this.lector);
+                        this.SeleccionarGeneral(celular);
                         celular.AsistenteVirtual = (bool)this.lector["asistenteVirtual"];
                         celular.Bateria = (int)this.lector["bateria"];
                         celular.CantidadContactos = (int)this.lector["cantidadContactos"];
@@ -76,11 +72,7 @@ namespace Electronicos
                     while (this.lector.Read())
                     {
                         Computadora computadora = new Computadora();
-                        computadora.ID = (int)this.lector["id"];
-                        computadora.Precio = (double)this.lector["precio"];
-                        computadora.Nombre = (string)this.lector["nombre"];
-                        computadora.Marca = (string)this.lector["marca"];
-                        computadora.TipoOrigen = AccesoDatos.ValidarEnum(this.lector);
+                        this.SeleccionarGeneral(computadora);
                         computadora.EsTactil = (bool)this.lector["esTactil"];
                         computadora.CantidadNucleos = (int)this.lector["cantidadNucleos"];
                         computadora.EspacioDiscoSSD = (double)this.lector["espacioDiscoSSD"];
@@ -93,11 +85,7 @@ namespace Electronicos
                     while (this.lector.Read())
                     {
                         Consola consola = new Consola();
-                        consola.ID = (int)this.lector["id"];
-                        consola.Precio = (double)this.lector["precio"];
-                        consola.Nombre = (string)this.lector["nombre"];
-                        consola.Marca = (string)this.lector["marca"];
-                        consola.TipoOrigen = AccesoDatos.ValidarEnum(this.lector);
+                        this.SeleccionarGeneral(consola);
                         consola.AceptaDiscosFisicos = (bool)this.lector["aceptaDiscosFisicos"];
                         consola.MemoriaTotal = (double)this.lector["memoriaTotal"];
                         consola.VelocidadDescargaMB = (int)this.lector["velocidadDescargaMB"];
@@ -113,16 +101,11 @@ namespace Electronicos
             finally
             {
                 this.lector.Close();
-
-                if (this.conexion.State == System.Data.ConnectionState.Open)
-                {
-                    this.conexion.Close();
-                }
+                this.CerrarConexion();
             }
             return lista;
         }
-
-        public bool AgregarDato(ArtefactoElectronico artefacto) //INSERT 
+        public bool AgregarDato(ArtefactoElectronico artefacto) //INSERT
         {
             string campos = "";
             bool retorno = false;
@@ -131,10 +114,7 @@ namespace Electronicos
             if (artefacto is Celular)
             {
                 Celular celu = ((Celular)artefacto);
-                this.comando.Parameters.AddWithValue("@precio", celu.Precio);
-                this.comando.Parameters.AddWithValue("@nombre", celu.Nombre);
-                this.comando.Parameters.AddWithValue("@marca", celu.Marca);
-                this.comando.Parameters.AddWithValue("@tipoOrigen", celu.TipoOrigen.ToString());
+                this.ConsultarGeneralmente(this.comando, celu);
                 this.comando.Parameters.AddWithValue("@asistenteVirtual", celu.AsistenteVirtual);
                 this.comando.Parameters.AddWithValue("@bateria", celu.Bateria);
                 this.comando.Parameters.AddWithValue("@cantidadContactos", celu.CantidadContactos);
@@ -144,10 +124,7 @@ namespace Electronicos
             else if (artefacto is Computadora)
             {
                 Computadora compu = ((Computadora)artefacto);
-                this.comando.Parameters.AddWithValue("@precio", compu.Precio);
-                this.comando.Parameters.AddWithValue("@nombre", compu.Nombre);
-                this.comando.Parameters.AddWithValue("@marca", compu.Marca);
-                this.comando.Parameters.AddWithValue("@tipoOrigen", compu.TipoOrigen.ToString());
+                this.ConsultarGeneralmente(this.comando, compu);
                 this.comando.Parameters.AddWithValue("@esTactil", compu.EsTactil);
                 this.comando.Parameters.AddWithValue("@cantidadNucleos", compu.CantidadNucleos);
                 this.comando.Parameters.AddWithValue("@espacioDiscoSSD", compu.EspacioDiscoSSD);
@@ -157,10 +134,7 @@ namespace Electronicos
             else if (artefacto is Consola)
             {
                 Consola conso = ((Consola)artefacto);
-                this.comando.Parameters.AddWithValue("@precio", conso.Precio);
-                this.comando.Parameters.AddWithValue("@nombre", conso.Nombre);
-                this.comando.Parameters.AddWithValue("@marca", conso.Marca);
-                this.comando.Parameters.AddWithValue("@tipoOrigen", conso.TipoOrigen.ToString());
+                this.ConsultarGeneralmente(this.comando, conso);
                 this.comando.Parameters.AddWithValue("@aceptaDiscosFisicos", conso.AceptaDiscosFisicos);
                 this.comando.Parameters.AddWithValue("@memoriaTotal", conso.MemoriaTotal);
                 this.comando.Parameters.AddWithValue("@velocidadDescargaMB", conso.VelocidadDescargaMB);
@@ -179,14 +153,11 @@ namespace Electronicos
                 retorno = true;
             }
 
-            if (this.conexion.State == System.Data.ConnectionState.Open)
-            {
-                this.conexion.Close();
-            }
+            this.CerrarConexion();
 
             return retorno;
         }
-        public bool ModificarDato(ArtefactoElectronico artefacto) //UPDATE 
+        public bool ModificarDato(ArtefactoElectronico artefacto) //UPDATE
         {
             string campos = "";
             bool retorno = false;
@@ -195,11 +166,7 @@ namespace Electronicos
             if (artefacto is Celular)
             {
                 Celular celu = ((Celular)artefacto);
-                this.comando.Parameters.AddWithValue("@id", celu.ID);
-                this.comando.Parameters.AddWithValue("@precio", celu.Precio);
-                this.comando.Parameters.AddWithValue("@nombre", celu.Nombre);
-                this.comando.Parameters.AddWithValue("@marca", celu.Marca);
-                this.comando.Parameters.AddWithValue("@tipoOrigen", celu.TipoOrigen.ToString());
+                this.ConsultarGeneralmente(this.comando, celu);
                 this.comando.Parameters.AddWithValue("@asistenteVirtual", celu.AsistenteVirtual);
                 this.comando.Parameters.AddWithValue("@bateria", celu.Bateria);
                 this.comando.Parameters.AddWithValue("@cantidadContactos", celu.CantidadContactos);
@@ -209,11 +176,7 @@ namespace Electronicos
             else if (artefacto is Computadora)
             {
                 Computadora compu = ((Computadora)artefacto);
-                this.comando.Parameters.AddWithValue("@id", compu.ID);
-                this.comando.Parameters.AddWithValue("@precio", compu.Precio);
-                this.comando.Parameters.AddWithValue("@nombre", compu.Nombre);
-                this.comando.Parameters.AddWithValue("@marca", compu.Marca);
-                this.comando.Parameters.AddWithValue("@tipoOrigen", compu.TipoOrigen.ToString());
+                this.ConsultarGeneralmente(this.comando, compu);
                 this.comando.Parameters.AddWithValue("@esTactil", compu.EsTactil);
                 this.comando.Parameters.AddWithValue("@cantidadNucleos", compu.CantidadNucleos);
                 this.comando.Parameters.AddWithValue("@espacioDiscoSSD", compu.EspacioDiscoSSD);
@@ -223,11 +186,7 @@ namespace Electronicos
             else if (artefacto is Consola)
             {
                 Consola conso = ((Consola)artefacto);
-                this.comando.Parameters.AddWithValue("@id", conso.ID);
-                this.comando.Parameters.AddWithValue("@precio", conso.Precio);
-                this.comando.Parameters.AddWithValue("@nombre", conso.Nombre);
-                this.comando.Parameters.AddWithValue("@marca", conso.Marca);
-                this.comando.Parameters.AddWithValue("@tipoOrigen", conso.TipoOrigen.ToString());
+                this.ConsultarGeneralmente(this.comando, conso);
                 this.comando.Parameters.AddWithValue("@aceptaDiscosFisicos", conso.AceptaDiscosFisicos);
                 this.comando.Parameters.AddWithValue("@memoriaTotal", conso.MemoriaTotal);
                 this.comando.Parameters.AddWithValue("@velocidadDescargaMB", conso.VelocidadDescargaMB);
@@ -247,14 +206,11 @@ namespace Electronicos
                 retorno = true;
             }
 
-            if (this.conexion.State == System.Data.ConnectionState.Open)
-            {
-                this.conexion.Close();
-            }
+            this.CerrarConexion();
 
             return retorno;
         }
-        public bool EliminarDato(ArtefactoElectronico artefacto) //DELETE 
+        public bool EliminarDato(ArtefactoElectronico artefacto) //DELETE
         {
             int id = artefacto.ID;
             bool retorno = false;
@@ -285,15 +241,11 @@ namespace Electronicos
                 retorno = true;
             }
 
-            if (this.conexion.State == System.Data.ConnectionState.Open)
-            {
-                this.conexion.Close();
-            }
+            this.CerrarConexion();
 
             return retorno;
         }
-
-        private static ETipoOrigen ValidarEnum(SqlDataReader lectorAuxiliar) 
+        private static ETipoOrigen ValidarEnum(SqlDataReader lectorAuxiliar)
         {
             if (lectorAuxiliar["tipoOrigen"].ToString() == "CHINO")
             {
@@ -354,29 +306,27 @@ namespace Electronicos
 
             return id;
         }
-
-        /*public bool PruebaConexion()
+        public void ConsultarGeneralmente(SqlCommand comandoAux, ArtefactoElectronico art)
         {
-            bool retorno = false;
-
-            try
+            comandoAux.Parameters.AddWithValue("@precio", art.Precio);
+            comandoAux.Parameters.AddWithValue("@nombre", art.Nombre);
+            comandoAux.Parameters.AddWithValue("@marca", art.Marca);
+            comandoAux.Parameters.AddWithValue("@tipoOrigen", art.TipoOrigen.ToString());
+        }
+        public void SeleccionarGeneral(ArtefactoElectronico art)
+        {
+            art.ID = (int)this.lector["id"];
+            art.Precio = (double)this.lector["precio"];
+            art.Nombre = (string)this.lector["nombre"];
+            art.Marca = (string)this.lector["marca"];
+            art.TipoOrigen = AccesoDatos.ValidarEnum(this.lector);
+        }
+        private void CerrarConexion()
+        {
+            if (this.conexion.State == System.Data.ConnectionState.Open)
             {
-                this.conexion.Open();
-                retorno = true;
+                this.conexion.Close();
             }
-            catch (Exception)
-            {
-
-            }
-            finally
-            {
-                if (this.conexion.State == System.Data.ConnectionState.Open)
-                {
-                    this.conexion.Close();
-                }
-            }
-
-            return retorno;
-        }*/
+        }
     }
 }
