@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 namespace Electronicos
 {
     /// <summary>
-    /// Representa una emmpresa electronica que contendria artefactos electronicos
+    /// Representa una emmpresa electronica que contendria artefactos electronicos y es generica, permitiendo que la lista ahora sea de celulares
+    /// u otros derivados de ArtefactoElectronico
     /// </summary>
     public sealed class EmpresaElectronica<T> : IUnicoID<T> where T : ArtefactoElectronico
     {
@@ -127,6 +128,11 @@ namespace Electronicos
             return art2.Precio.CompareTo(art1.Precio);
         }
 
+        /// <summary>
+        /// Definicion del metodo de la interfaz
+        /// </summary>
+        /// <param name="art">El objeto del tipo T del cual se va a tomar la info</param>
+        /// <returns>Retorna la informacion del id</returns>
         public string RetornarDataDeId(T art)
         {
             return $"Numero de ID unico: {art.ID}";

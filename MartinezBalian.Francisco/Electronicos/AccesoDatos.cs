@@ -10,6 +10,9 @@ using System.Collections;
 
 namespace Electronicos
 {
+    /// <summary>
+    /// Clase referida a todo el manejo del programa con una base de datos
+    /// </summary>
     public sealed class AccesoDatos
     {
         private SqlConnection conexion; //objeto encargado de conectarse con el motor de base de datos
@@ -17,16 +20,30 @@ namespace Electronicos
         private SqlCommand comando; //objeto para poder hacer consultas
         private SqlDataReader lector; //va a contener lo q devuelve la consulta de sql
 
+        /// <summary>
+        /// Construcutor estatico que se encarga de inicializar la cadena de conexion para el motor de la base de datos
+        /// </summary>
         static AccesoDatos()
         {
             AccesoDatos.cadena_conexion = Properties.Resources.miConexion;
             //AccesoDatos.cadena_conexion = @"Data Source=localhost\SQLEXPRESS;Initial Catalog=Electronicos_BD;Integrated Security=True;Trust Server Certificate=True";
         }
+        /// <summary>
+        /// Constructor de instancia que se encarga de inicializar la conexion con la base de datos
+        /// </summary>
         public AccesoDatos()
         {
             this.conexion = new SqlConnection(AccesoDatos.cadena_conexion);
         }
 
+        /// <summary>
+        /// Metodo que se encarga de tomar los datos de todas las tablas de la base de datos
+        /// </summary>
+        /// <param name="lista">La lista que se va a pasar para llenar de datos</param>
+        /// <param name="celu">Si esta en true, se toman los datos de la tabla de los celulalres</param>
+        /// <param name="compu">Si esta en true, se toman los datos de la tabla de las computadoras</param>
+        /// <param name="conso">Si esta en true, se toman los datos de la tabla de las consolas</param>
+        /// <returns>Devuelve la lista completa con los datos</returns>
         public List<ArtefactoElectronico> ObtenerTodasLasListas(List<ArtefactoElectronico> lista,
             bool celu, bool compu, bool conso) //SELECT
         {
@@ -105,6 +122,11 @@ namespace Electronicos
             }
             return lista;
         }
+        /// <summary>
+        /// Agrega un artefacto electronico a la base de datos
+        /// </summary>
+        /// <param name="artefacto">Es el artefacato que se va a agregar</param>
+        /// <returns>Retorna un booleano indicando si se pudo agregar o no</returns>
         public bool AgregarDato(ArtefactoElectronico artefacto) //INSERT
         {
             string campos = "";
@@ -157,6 +179,11 @@ namespace Electronicos
 
             return retorno;
         }
+        /// <summary>
+        /// Modifica un artefacto electronico de la base de datos
+        /// </summary>
+        /// <param name="artefacto">Es el artefacato que se va a modificar</param>
+        /// <returns>Retorna un booleano indicando si se pudo modificar o no</returns>
         public bool ModificarDato(ArtefactoElectronico artefacto) //UPDATE
         {
             string campos = "";
@@ -210,6 +237,11 @@ namespace Electronicos
 
             return retorno;
         }
+        /// <summary>
+        /// Elimina un artefacto electronico de la base de datos
+        /// </summary>
+        /// <param name="artefacto">Es el artefacato que se va a eliminar</param>
+        /// <returns>Retorna un booleano indicando si se pudo eliminar o no</returns>
         public bool EliminarDato(ArtefactoElectronico artefacto) //DELETE
         {
             int id = artefacto.ID;
@@ -245,6 +277,11 @@ namespace Electronicos
 
             return retorno;
         }
+        /// <summary>
+        /// Se encarga de validar los strings del lector de base de datos, para asi transformarlos en enum
+        /// </summary>
+        /// <param name="lectorAuxiliar">Es el lector de la base de datos</param>
+        /// <returns>Retorna el enum correcto del objeto</returns>
         private static ETipoOrigen ValidarEnum(SqlDataReader lectorAuxiliar)
         {
             if (lectorAuxiliar["tipoOrigen"].ToString() == "CHINO")
@@ -268,6 +305,14 @@ namespace Electronicos
                 return ETipoOrigen.INTERNACIONAL;
             }
         }
+        /// <summary>
+        /// Toma el id de la base de datos de un objeto que se creo o modifico
+        /// </summary>
+        /// <param name="celu">Si esta en true, va a buscar en la tabla de celulares</param>
+        /// <param name="compu">Si esta en true, va a buscar en la tabla de computadoras</param>
+        /// <param name="conso">Si esta en true, va a buscar en la tabla de consolas</param>
+        /// <param name="artefacto">Artefacto del cual se va a buscar el id</param>
+        /// <returns></returns>
         public int TraerID(bool celu, bool compu, bool conso, ArtefactoElectronico artefacto)
         {
             int id = 0;
@@ -306,6 +351,11 @@ namespace Electronicos
 
             return id;
         }
+        /// <summary>
+        /// Metodo que hace una consulta general de todas las tablas
+        /// </summary>
+        /// <param name="comandoAux">Es el objeto de comando de sql</param>
+        /// <param name="art">Es el artefacto del cual se van a tomar los datos</param>
         public void ConsultarGeneralmente(SqlCommand comandoAux, ArtefactoElectronico art)
         {
             comandoAux.Parameters.AddWithValue("@id", art.ID);
@@ -314,6 +364,10 @@ namespace Electronicos
             comandoAux.Parameters.AddWithValue("@marca", art.Marca);
             comandoAux.Parameters.AddWithValue("@tipoOrigen", art.TipoOrigen.ToString());
         }
+        /// <summary>
+        /// Hace una seleccion general de datos del artefaco
+        /// </summary>
+        /// <param name="art">Artefacto del cual se van a tomar los datos</param>
         public void SeleccionarGeneral(ArtefactoElectronico art)
         {
             art.ID = (int)this.lector["id"];
@@ -322,6 +376,9 @@ namespace Electronicos
             art.Marca = (string)this.lector["marca"];
             art.TipoOrigen = AccesoDatos.ValidarEnum(this.lector);
         }
+        /// <summary>
+        /// Se encarga de cerrar la conexion si esta abierta
+        /// </summary>
         private void CerrarConexion()
         {
             if (this.conexion.State == System.Data.ConnectionState.Open)

@@ -14,7 +14,7 @@ namespace Electronicos
         /// <summary>
         /// Informa que el usuario no es valido
         /// </summary>
-        /// <param name="ex">Excepcio que se captura</param>
+        /// <param name="ex">Objeto que representa la excepcion que se captura</param>
         /// <returns>Retorna un mennsae informando que el usuario es invalido</returns>
         public static string RetornarInformacionExcepcion(UsuarioIncorrectoException ex)
         {

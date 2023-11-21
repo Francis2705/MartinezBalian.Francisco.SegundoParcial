@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Electronicos
 {
     /// <summary>
-    /// Clase que representa un usuario
+    /// Clase que representa un usuario y pertenece a la interfaz IReporte
     /// </summary>
     public class UsuarioElectronico : IReporte
     {
@@ -26,6 +26,10 @@ namespace Electronicos
         {
             return $"Nombre: {nombre} - Apellido: {apellido}\n";
         }
+        /// <summary>
+        /// Define el metodo de la interfaz
+        /// </summary>
+        /// <returns>Retorna toda la informacion importante del usuario</returns>
         public string RetornarInfoImportante()
         {
             StringBuilder sb = new StringBuilder();
