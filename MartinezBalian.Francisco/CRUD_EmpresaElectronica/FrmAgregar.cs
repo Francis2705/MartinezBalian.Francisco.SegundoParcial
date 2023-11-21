@@ -31,7 +31,11 @@ namespace CRUD_EmpresaElectronica
             cmBoxOrigen.Items.Add(ETipoOrigen.KOREANO.ToString());
             cmBoxOrigen.DropDownStyle = ComboBoxStyle.DropDownList;
         }
-
+        /// <summary>
+        /// Boton confirmar, que confirmara el agregado o modificado de un objeto
+        /// </summary>
+        /// <param name="sender">Representa un objeto de cualquier tipo</param>
+        /// <param name="e">Representa un objeto de tipo EventArgs</param>
         protected virtual void btnConfirmar_Click(object sender, EventArgs e)
         {
 

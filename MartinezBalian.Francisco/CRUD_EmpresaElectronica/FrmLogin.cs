@@ -124,6 +124,11 @@ namespace CRUD_EmpresaElectronica
         {
             return FrmLogin.usuarioLogueado;
         }
+        /// <summary>
+        /// Link que permite que el usuario recupere su clave
+        /// </summary>
+        /// <param name="sender">Representa un objeto de cualquier tipo</param>
+        /// <param name="e">Representa un objeto de tipo EventArgs</param>
         private void linkLblRecuperarClave_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             FrmRecuperarClave frmRecuperarClave = new FrmRecuperarClave(this);

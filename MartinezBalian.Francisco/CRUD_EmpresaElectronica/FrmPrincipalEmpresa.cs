@@ -41,6 +41,9 @@ namespace CRUD_EmpresaElectronica
         private CancellationTokenSource tokenCancelacion;
         private Task tareaCronometro;
 
+        /// <summary>
+        /// Constructor de instancia que carga los eventos, y que ademas carga la lista que la informacion de las tablas de la base de datos
+        /// </summary>
         public FrmPrincipalEmpresa()
         {
             InitializeComponent();
@@ -59,6 +62,9 @@ namespace CRUD_EmpresaElectronica
                 false, false, true);
             this.Text = this.empresaElectronica.Nombre;
         }
+        /// <summary>
+        /// Se encarga de actualizar el lstBoxObjetos con los productos existentes
+        /// </summary>
         private void ActualizarVisor()
         {
             lstBoxObjetos.Items.Clear();
@@ -68,6 +74,11 @@ namespace CRUD_EmpresaElectronica
                 lstBoxObjetos.Items.Add(artefacto);
             }
         }
+        /// <summary>
+        /// Cierra la aplicacion y finaliza el hilo secundario del timer
+        /// </summary>
+        /// <param name="sender">Representa un objeto de cualquier tipo</param>
+        /// <param name="e">Representa un objeto de tipo EventArgs</param>
         private void FrmPrincipalEmpresa_FormClosing(object sender, FormClosingEventArgs e)
         {
             DialogResult resultado = MessageBox.Show("¿Estás seguro de que quieres cerrar la sesion?",
@@ -83,6 +94,11 @@ namespace CRUD_EmpresaElectronica
                 this.DialogResult = DialogResult.OK;
             }
         }
+        /// <summary>
+        /// Inicializa el comboBox y aparte inicializa el timer en otro hilo
+        /// </summary>
+        /// <param name="sender">Representa un objeto de cualquier tipo</param>
+        /// <param name="e">Representa un objeto de tipo EventArgs</param>
         private void FrmPrincipalEmpresa_Load(object sender, EventArgs e)
         {
             this.lblUsuarioInfo.Text = $"Nombre: {usuarioElectronico.nombre}\nFecha: {DateTime.Now.ToString("yyyy-MM-dd")}";
@@ -100,11 +116,21 @@ namespace CRUD_EmpresaElectronica
             //El primer token es el de cancelacion
             //Y el segundo, que en realidad es el mismo, es el que indica cuando se va a cancelar la tarea y que termine
         }
+        /// <summary>
+        /// Muestra el formulario con la info de los usuarios logueados
+        /// </summary>
+        /// <param name="sender">Representa un objeto de cualquier tipo</param>
+        /// <param name="e">Representa un objeto de tipo EventArgs</param>
         private void btnVisualizadorUsuariosLogueo_Click(object sender, EventArgs e)
         {
             FrmVisualizadorUsuarios frmVisualizadorUsuarios = new FrmVisualizadorUsuarios();
             frmVisualizadorUsuarios.ShowDialog();
         }
+        /// <summary>
+        /// Muestra las caracteristicas especificas del producto seleccionado
+        /// </summary>
+        /// <param name="sender">Representa un objeto de cualquier tipo</param>
+        /// <param name="e">Representa un objeto de tipo EventArgs</param>
         private void btnMostrarCaracteristicasEspecificas_Click(object sender, EventArgs e)
         {
             if (this.lstBoxObjetos.SelectedIndex == -1)
@@ -131,6 +157,11 @@ namespace CRUD_EmpresaElectronica
                     "Caracteristicas especificas", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
+        /// <summary>
+        /// Ordena la lista de productos segun el criterio seleccionado
+        /// </summary>
+        /// <param name="sender">Representa un objeto de cualquier tipo</param>
+        /// <param name="e">Representa un objeto de tipo EventArgs</param>
         private void btnOrdenar_Click(object sender, EventArgs e)
         {
             if (this.rbNombreAscendentemente.Checked == true)
@@ -155,6 +186,11 @@ namespace CRUD_EmpresaElectronica
             }
             this.ActualizarVisor();
         }
+        /// <summary>
+        /// Agrega un producto a la lista y a la base de datos
+        /// </summary>
+        /// <param name="sender">Representa un objeto de cualquier tipo</param>
+        /// <param name="e">Representa un objeto de tipo EventArgs</param>
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             if (usuarioElectronico.perfil != "vendedor")
@@ -238,6 +274,11 @@ namespace CRUD_EmpresaElectronica
                 this.PermisoDenegado.Invoke(usuarioElectronico.nombre);
             }
         }
+        /// <summary>
+        /// Modifica un producto de la lista y de la base de datos
+        /// </summary>
+        /// <param name="sender">Representa un objeto de cualquier tipo</param>
+        /// <param name="e">Representa un objeto de tipo EventArgs</param>
         private void btnModificar_Click(object sender, EventArgs e)
         {
             if (usuarioElectronico.perfil == "administrador" || usuarioElectronico.perfil == "supervisor")
@@ -314,6 +355,11 @@ namespace CRUD_EmpresaElectronica
                 this.PermisoDenegado.Invoke(usuarioElectronico.nombre);
             }
         }
+        /// <summary>
+        /// Elimina un producto de la lista y de la base de datos
+        /// </summary>
+        /// <param name="sender">Representa un objeto de cualquier tipo</param>
+        /// <param name="e">Representa un objeto de tipo EventArgs</param>
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             if (this.usuarioElectronico.perfil == "administrador")
@@ -342,11 +388,21 @@ namespace CRUD_EmpresaElectronica
                 this.PermisoDenegado.Invoke(usuarioElectronico.nombre);
             }
         }
+        /// <summary>
+        /// Muestra la informacion del usuario que esta logueado
+        /// </summary>
+        /// <param name="sender">Representa un objeto de cualquier tipo</param>
+        /// <param name="e">Representa un objeto de tipo EventArgs</param>
         private void btnMostrarInfoUsuarioLogueado_Click(object sender, EventArgs e)
         {
             MessageBox.Show(this.usuarioElectronico.RetornarInfoImportante(), "Informacion de usuario",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+        /// <summary>
+        /// Valida si se pudo agregar el producto o no
+        /// </summary>
+        /// <param name="producto">Producto a agregar</param>
+        /// <returns>Retorna un booleano informando si se pudo agregar o no</returns>
         private bool ValidarAgregadoProducto(ArtefactoElectronico producto)
         {
             if (this.cantidad == this.empresaElectronica.ProductosElectronicos.Count)
@@ -360,6 +416,10 @@ namespace CRUD_EmpresaElectronica
                 return true;
             }
         }
+        /// <summary>
+        /// Empieza y actualiza el tiempo del timer
+        /// </summary>
+        /// <param name="tokenCancelacion">Es el token que indicara la cancelacion del otro hilo</param>
         private void EmpezarTiempo(CancellationToken tokenCancelacion)
         {
             int segundos = 1;
@@ -383,10 +443,17 @@ namespace CRUD_EmpresaElectronica
                 segundosContando = segundos % 60;
             }
         }
+        /// <summary>
+        /// Actualiza el label del texto de la hora
+        /// </summary>
+        /// <param name="textoHora"></param>
         private void ActualizarLabel(string textoHora)
         {
             this.lblCronometro.Text = textoHora;
         }
+        
+        //Eventos de los botontes de agregar, modificar y eliminar, que, segun el perfil del usuario, se pintaran de rojo o verde agua
+        //Indicando que el rojo no lo dejara presionar el boton, y el verde agua indicara que si se podra presionar el boton
         private void btnAgregar_MouseEnter(object sender, EventArgs e)
         {
             bool valido = false;
