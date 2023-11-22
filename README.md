@@ -10,6 +10,8 @@ Me llamo Francisco Martínez Balian, tengo 19 años y aspiro a ser un gran progr
 Este CRUD representa una aplicación diseñada para una empresa de productos electrónicos. Permite agregar, modificar y eliminar distintos elementos electrónicos de la lista y de la base de datos, y no permite agregar dos productos iguales para evitar confusiones (no pueden tener ni el mismo nombre ni el mismo precio). Además, permite ordenar la lista, tanto por sus nombres como por sus precios, tiene un botón para mostrar las características específicas de cada producto por si se quiere saber más de este y por último, contiene un visualizador, para ver un registro de quienes se loguearon.
 Dependiendo del perfil de quien se loguee, tendrá disponibles ciertas funcionalidad y otras estarán bloqueadas.
 
+holaa
+
 # Diagrama esquemático - Testeo
 ![DiagramaClases](Diagramas/Testeo.png)
 
